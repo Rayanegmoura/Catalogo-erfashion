@@ -324,6 +324,97 @@ button.comprar-agora:hover {
   transform: translateY(-2px);
 }
 
+/* ===  VARIAS FOTOS NA MESMA IMAGEM === */
+
+.tela-produto {
+  position: relative;
+  max-width: 280px;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1.5px solid #d6b98c;
+  box-shadow: 0px 5px 12px #9c9c9c;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.slider-produto {
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer; /* indica que pode clicar/tocar */
+  position: relative;
+}
+
+.slider-produto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+  border-radius: 12px;
+  transition: opacity 0.4s ease;
+}
+
+.slider-produto img.active {
+  display: block;
+  opacity: 1;
+}
+
+.tela-produto h3 {
+  font-size: 18px;
+  color: #202020;
+  margin: 12px 0 5px;
+}
+
+.tela-produto p {
+  color: #D16C7C;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+button.comprar-agora {
+  background: linear-gradient(90deg, #D6B96E, #F3DFA3);
+  color: #fff;
+  font-family: 'Zain', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 30px;
+  padding: 12px 28px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(214, 185, 110, 0.6);
+  transition: all 0.3s ease;
+}
+
+button.comprar-agora:hover {
+  background: linear-gradient(90deg, #F3DFA3, #D6B96E);
+  box-shadow: 0 8px 20px rgba(214, 185, 110, 0.8);
+  transform: translateY(-2px);
+}
+
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 5px;
+  gap: 6px;
+}
+
+.slider-dots .dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(214,185,110,0.4); /* dourado suave */
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.slider-dots .dot.active {
+  background: #D6B96E; /* dourado principal */
+  transform: scale(1.2);
+}
+
 /* BLOCO CLIENTE VIP — NEUTRO PREMIUM */
 
 section.box-cliente-vip {
@@ -731,15 +822,19 @@ section.box-cliente-vip {
 
   /* IMAGEM */
   .tela-produto img {
-    height: 220px;
+    height: 260px;
     object-fit: cover;
     border-radius: 12px;
   }
 
+  .slider-dots {
+  margin-top: 5px;
+    gap: 4px; 
+}
+
   /* TEXTO DO PRODUTO */
   .produtos-destaque .tela-produto h3 {
     font-size: 15px;
-    margin-top: 10px;
     line-height: 1.2;
   }
 
@@ -757,10 +852,8 @@ section.box-cliente-vip {
     border-radius: 30px;
   }
 
-  /* ===== CLIENTE VIP ===== */
-  section.box-cliente-vip {
-    padding: 50px 0;
-  }
+
+  /* ===== BOX CLIENTE VIP ===== */
 
   .box-cliente-vip .flex {
     padding: 35px 25px;
@@ -844,3 +937,4 @@ section.box-cliente-vip {
   }
 
 }
+
