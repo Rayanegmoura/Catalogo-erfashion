@@ -40,6 +40,10 @@ body {
   animation: balaoPulse 2.5s infinite;
 }
 
+.btn-flutuante a {
+  text-decoration: none;
+}
+
 /* BOTÃO */
 .btn-flutuante button {
   width: 56px;
