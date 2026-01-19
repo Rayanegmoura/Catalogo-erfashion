@@ -1,571 +1,622 @@
 /* ESTILO DA PÁGINA */
 
- * {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
- }
-
- body {
-   background-color: #F7F2EB;
-   height: 100vh;
-   font-family: 'Zain', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-   color: #202020;
-   transition: .5s;
- }
-
- /* PADRÃO DA PÁGINA */
-
- .interface {
-   max-width: 1200px;
-   margin: 0 auto;
-   padding: 0 4%;
- }
-
- .flex {
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: center;
-   gap: 20px;
- }
-
- h2 {
-   font-size: 40px;
-   color: #E89AA3;
-   text-align: center;
- }
-
- .subtitle-topo {
-   font-size: 18px;
-   color: #202020;
-   text-align: center;
-   margin-bottom: 30px;
- }
-
- /* imagens responsivas */
- img {
-   width: 100%;
-   height: auto;
- }
-
- /* POSIÇÃO DO MENU */
-
- .logo img {
-   position: absolute;
-   width: 90px;
-   height: auto;
-   top: 25%;
-   left: 5%;
- }
-
- .menu-desktop {
-   position: absolute;
-   float: left;
-   top: 60%;
-   left: 50%;
-   transform: translate(-50%, -50%);
- }
-
- .redes-sociais-topo {
-   position: absolute;
-   top: 0;
-   right: 1%;
- }
-
- /* CABEÇALHO */
-
- .txt-topo-menu {
-   background-color: #E89AA3;
-   color: #fff;
-   text-align: center;
-   font-weight: 100;
- }
-
- .redes-sociais-topo {
-   color: #fff;
-   font-size: 15px;
- }
-
- .redes-sociais-topo a {
-   color: #fff;
-   margin-left: 12px;
-   transition: .3s;
-   text-decoration: none;
- }
-
- .redes-sociais-topo a:hover {
-   color: #202020;
-   transition: .3s;
- }
-
- .redes-sociais-topo a:hover i {
-   color: #202020;
-   transition: .3s;
- }
-
- header {
-   background-color: #F6B7B7;
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 130px;
-   box-sizing: border-box;
-   box-shadow: 0px 5px 12px #afafaf;
-   z-index: 5;
-   font-weight: bold;
- }
-
- header nav.nav-desktop ul {
-   list-style-type: none;
- }
-
- header nav.menu-desktop ul li {
-   display: inline-block;
- }
-
- header nav.menu-desktop ul li a {
-   color: #202020;
-   font-size: 15px;
-   text-decoration: none;
-   text-transform: uppercase;
-   text-align: center;
-   margin-left: 25px;
-   transition: .5s;
- }
-
- .menu-desktop a:hover {
-   background-color: transparent;
-   color: #fff;
-   text-decoration: overline;
-   transform: scale(1.1);
-   border-radius: 30px;
-   cursor: pointer;
- }
-
- /* CONTEÚDO DA PÁGINA */
-
- main {
-   padding-top: 130px;
- }
-
- /* BEM VINDO */
-
- section.box-txt-principal {
-   padding: 10px 4%;
- }
-
- section.box-txt-principal .txt-bem-vindo {
-   align-items: center;
-   justify-content: center;
-   text-align: center;
-   gap: 90px;
- }
-
- .topo-catalogo {
-   background: linear-gradient(135deg, #F6E6B5, #E1C781);
-   color: #202020;
-   padding: 14px;
-   border-radius: 16px;
-   text-align: center;
-   margin-bottom: 5px;
-   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
- }
-
- .topo-catalogo strong {
-   display: block;
-   font-size: 50px;
-   font-weight: 700;
- }
-
- .topo-catalogo span {
-   font-size: 18px;
- }
-
- /* COLEÇÃO DA SEMANA */
-
- section.box-colecao-da-semana {
-   padding: 70px 4%;
- }
-
- section.box-colecao-da-semana .flex {
-   align-items: center;
-   justify-content: center;
-   text-align: center;
-   gap: 50px;
- }
-
- .produtos-destaque {
-   display: flex;
-   flex-wrap: wrap;
-   gap: 50px;
-   justify-content: space-around;
- }
-
- .produtos-destaque .produto {
-   max-width: 280px;
-   background-color: #fff;
-   border-radius: 20px;
-   border: 1.5px solid #d6b98c;
-   box-shadow: 0px 5px 12px #9c9c9c;
-   padding: 20px;
-   width: 280px;
-   height: 500px;
- }
-
- .produto {
-   width: 100%;
-   height: 300px;
-   overflow: hidden;
-   border-radius: 12px;
- }
-
- .produto img {
-   width: 100%;
-   height: 71%;
-   object-fit: cover;
-   /* A MÁGICA */
- }
-
- .produtos-destaque .produto h3 {
-   font-size: 22px;
-   color: #202020;
- }
-
- .produtos-destaque .produto p {
-   color: #D16C7C;
-   font-weight: 600;
- }
-
- button.comprar-agora {
-   margin-top: 15px;
-   background: linear-gradient(135deg, #F3DFA3, #D6B96E);
-   color: #fff;
-   font-family: 'Zain', sans-serif !important;
-   font-weight: normal;
-   font-size: 16px;
-   border-radius: 30px;
-   padding: 10px 20px;
-   border: none;
-   cursor: pointer;
-   box-shadow: 0px 5px 12px #9c9c9c;
- }
-
- button.comprar-agora:hover {
-   box-shadow: 0px 10px 18px #9c9c9c;
-   filter: brightness(1.1);
- }
-
-  /* BLOCO CLIENTE VIP — NEUTRO PREMIUM */
-
- section.box-cliente-vip {
-   padding: 90px 4%;
-   background: linear-gradient(135deg, #f7f2eb, #f3ede6);
- }
-
- .box-cliente-vip .flex {
-   flex-direction: column;
-   max-width: 760px;
-   margin: auto;
-   text-align: center;
-   background: #ffffff;
-   padding: 60px 50px;
-   border-radius: 28px;
-   border: 1px solid #e6d8c3;
-   box-shadow: 0 20px 45px rgba(0, 0, 0, .08);
- }
-
- .box-cliente-vip h2 {
-   font-size: 36px;
-   color: #c7a15a;
-   /* dourado suave */
-   margin-bottom: 8px;
- }
-
- .box-cliente-vip p {
-   font-size: 17px;
-   color: #666;
-   margin-bottom: 40px;
- }
-
- .vantagens-clube {
-   list-style: none;
-   padding: 0;
-   text-align: left;
- }
-
- .vantagens-clube li {
-   font-size: 16px;
-   padding: 14px 0;
-   border-bottom: 1px dashed #e0d2b8;
- }
-
- .vantagens-clube li:last-child {
-   border-bottom: none;
- }
-
- .descricao-vantagens {
-   display: block;
-   font-size: 14px;
-   color: #999;
-   margin-top: 4px;
- }
-
- /* BOTÃO VIP — ELEGANTE */
-
- .btn-vip {
-   margin-top: 45px;
-   background: transparent;
-   color: #c7a15a;
-   border: 2px solid #c7a15a;
-   padding: 14px 46px;
-   border-radius: 50px;
-   font-size: 15px;
-   letter-spacing: 1px;
-   cursor: pointer;
-   transition: .35s;
- }
-
- .btn-vip:hover {
-   background: #c7a15a;
-   color: #fff;
-   box-shadow: 0 0 20px rgba(199, 161, 90, .5);
-   transform: scale(1.05);
- }
-
- /* =============  CONEXÃO ER FASHION  ================= */
-
- .conexao-erfashion {
-   background-color: #F7F2EB;
-   padding: 90px 0;
- }
-
- .conexao-erfashion .interface {
-   max-width: 1200px;
-   margin: 0 auto;
-   padding: 0 4%;
- }
-
- /* TOPO */
- .conexao-topo {
-   text-align: center;
-   margin-bottom: 60px;
- }
-
- .conexao-topo h2 {
-   font-size: 2.3rem;
-   color: #202020;
-   font-weight: 600;
-   margin-bottom: 14px;
- }
-
- .conexao-topo h2::after {
-   content: "";
-   display: block;
-   width: 70px;
-   height: 2px;
-   margin: 14px auto 0;
-   background: linear-gradient(90deg, #d6b98c, #f2d9c3);
- }
-
- .conexao-topo .subtitle-topo {
-   font-size: 1rem;
-   color: #5f5f5f;
-   line-height: 1.7;
- }
-
- /* CONTEÚDO */
- .conexao-conteudo {
-   display: flex;
-   justify-content: center;
- }
-
- /* CTA GRID */
- .conexao-cta {
-   display: grid;
-   grid-template-columns: repeat(2, 1fr);
-   gap: 30px;
-   width: 100%;
- }
-
- /* CARD BASE */
- .card-rede {
-   background: #ffffff;
-   border-radius: 20px;
-   padding: 32px;
-   border: 1px solid rgba(214, 185, 140, 0.35);
-   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
-   transition: transform 0.35s ease, box-shadow 0.35s ease;
-   position: relative;
- }
-
- .card-rede:hover {
-   transform: translateY(-6px);
-   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
- }
-
- /* ÍCONE */
- .card-rede i {
-   font-size: 2.3rem;
-   color: #d6b98c;
-   margin-bottom: 14px;
-   display: inline-block;
- }
-
- /* TÍTULO */
- .card-rede h3 {
-   font-size: 1.2rem;
-   color: #202020;
-   margin-bottom: 10px;
-   font-weight: 500;
- }
-
- /* TEXTO */
- .card-rede p {
-   font-size: 0.95rem;
-   color: #5f5f5f;
-   line-height: 1.6;
-   margin-bottom: 20px;
- }
-
- /* BOTÃO */
- .card-rede a {
-   display: inline-block;
-   padding: 10px 26px;
-   border-radius: 30px;
-   font-size: 0.9rem;
-   font-weight: 500;
-   text-decoration: none;
-   color: #202020;
-   background: linear-gradient(90deg, #f2d9c3, #d6b98c);
-   transition: opacity 0.3s ease, transform 0.3s ease;
- }
-
- .card-rede a:hover {
-   opacity: 0.85;
-   transform: scale(1.03);
- }
-
- /* DIFERENCIAÇÃO SUTIL */
- .card-rede.whatsapp {
-   border-color: rgba(214, 185, 140, 0.55);
- }
-
- .card-rede.whatsapp::before {
-   content: "VIP";
-   position: absolute;
-   top: 18px;
-   right: 18px;
-   font-size: 0.7rem;
-   letter-spacing: 1px;
-   padding: 4px 8px;
-   border-radius: 12px;
-   background: #f2d9c3;
-   color: #202020;
- }
-
- /* ===============================
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #F7F2EB;
+  height: 100vh;
+  font-family: 'Zain', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #202020;
+  transition: .5s;
+}
+
+/* PADRÃO DA PÁGINA */
+
+.interface {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 4%;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+h2 {
+  font-size: 40px;
+  color: #E89AA3;
+  text-align: center;
+}
+
+.subtitle-topo {
+  font-size: 18px;
+  color: #202020;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* imagens responsivas */
+img {
+  width: 100%;
+  height: auto;
+}
+
+/* POSIÇÃO DO MENU */
+
+.logo img {
+  position: absolute;
+  width: 90px;
+  height: auto;
+  top: 25%;
+  left: 5%;
+}
+
+.menu-desktop {
+  position: absolute;
+  float: left;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.redes-sociais-topo {
+  position: absolute;
+  top: 0;
+  right: 1%;
+}
+
+/* CABEÇALHO */
+
+.txt-topo-menu {
+  background-color: #E89AA3;
+  color: #fff;
+  text-align: center;
+  font-weight: 100;
+}
+
+.redes-sociais-topo {
+  color: #fff;
+  font-size: 15px;
+}
+
+.redes-sociais-topo a {
+  color: #fff;
+  margin-left: 12px;
+  transition: .3s;
+  text-decoration: none;
+}
+
+.redes-sociais-topo a:hover {
+  color: #202020;
+  transition: .3s;
+}
+
+.redes-sociais-topo a:hover i {
+  color: #202020;
+  transition: .3s;
+}
+
+header {
+  background-color: #F6B7B7;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 130px;
+  box-sizing: border-box;
+  box-shadow: 0px 5px 12px #afafaf;
+  z-index: 5;
+  font-weight: bold;
+}
+
+header nav.nav-desktop ul {
+  list-style-type: none;
+}
+
+header nav.menu-desktop ul li {
+  display: inline-block;
+}
+
+header nav.menu-desktop ul li a {
+  color: #202020;
+  font-size: 15px;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  margin-left: 25px;
+  transition: .5s;
+}
+
+.menu-desktop a:hover {
+  background-color: transparent;
+  color: #fff;
+  text-decoration: overline;
+  transform: scale(1.1);
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+/* CONTEÚDO DA PÁGINA */
+
+main {
+  padding-top: 130px;
+}
+
+/* BEM VINDO */
+
+section.box-txt-principal {
+  padding: 10px 4%;
+}
+
+section.box-txt-principal .txt-bem-vindo {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 90px;
+}
+
+.topo-catalogo {
+  background: linear-gradient(135deg, #F6E6B5, #E1C781);
+  color: #202020;
+  padding: 14px;
+  border-radius: 16px;
+  text-align: center;
+  margin-bottom: 5px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.topo-catalogo strong {
+  display: block;
+  font-size: 50px;
+  font-weight: 700;
+}
+
+.topo-catalogo span {
+  font-size: 18px;
+}
+
+/* COLEÇÃO DA SEMANA */
+
+section.box-colecao-da-semana {
+  padding: 70px 4%;
+}
+
+section.box-colecao-da-semana .flex {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 50px;
+}
+
+.produtos-destaque {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  justify-content: space-around;
+}
+
+.produtos-destaque .tela-produto {
+  max-width: 280px;
+  background-color: #fff;
+  border-radius: 20px;
+  border: 1.5px solid #d6b98c;
+  box-shadow: 0px 5px 12px #9c9c9c;
+  padding: 20px;
+  width: 280px;
+  height: 500px;
+}
+
+.tela-produto {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.tela-produto img {
+  width: 100%;
+  height: 71%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.produtos-destaque .tela-produto h3 {
+  font-size: 22px;
+  color: #202020;
+}
+
+.produtos-destaque .tela-produto p {
+  color: #D16C7C;
+  font-weight: 600;
+}
+
+button.comprar-agora {
+  margin-top: 15px;
+  background: linear-gradient(135deg, #F3DFA3, #D6B96E);
+  color: #fff;
+  font-family: 'Zain', sans-serif !important;
+  font-weight: normal;
+  font-size: 16px;
+  border-radius: 30px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0px 5px 12px #9c9c9c;
+}
+
+button.comprar-agora:hover {
+  background: #c7a15a;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(199, 161, 90, .5);
+  transform: scale(1.05);
+}
+
+/* BLOCO CLIENTE VIP — NEUTRO PREMIUM */
+
+section.box-cliente-vip {
+  padding: 90px 4%;
+  background: linear-gradient(135deg, #f7f2eb, #f3ede6);
+}
+
+.box-cliente-vip .flex {
+  flex-direction: column;
+  max-width: 760px;
+  margin: auto;
+  text-align: center;
+  background: #ffffff;
+  padding: 60px 50px;
+  border-radius: 28px;
+  border: 1px solid #e6d8c3;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, .08);
+}
+
+.box-cliente-vip h2 {
+  font-size: 36px;
+  color: #c7a15a;
+  /* dourado suave */
+  margin-bottom: 8px;
+}
+
+.box-cliente-vip p {
+  font-size: 17px;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.vantagens-clube {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.vantagens-clube li {
+  font-size: 16px;
+  padding: 14px 0;
+  border-bottom: 1px dashed #e0d2b8;
+}
+
+.vantagens-clube li:last-child {
+  border-bottom: none;
+}
+
+.descricao-vantagens {
+  display: block;
+  font-size: 14px;
+  color: #999;
+  margin-top: 4px;
+}
+
+/* BOTÃO VIP — ELEGANTE */
+
+.btn-vip {
+  margin-top: 45px;
+  background: transparent;
+  color: #c7a15a;
+  border: 2px solid #c7a15a;
+  padding: 14px 46px;
+  border-radius: 50px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: .35s;
+}
+
+.btn-vip:hover {
+  background: #c7a15a;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(199, 161, 90, .5);
+  transform: scale(1.05);
+}
+
+/* =============  CONEXÃO ER FASHION  ================= */
+
+.conexao-erfashion {
+  background-color: #F7F2EB;
+  padding: 90px 0;
+}
+
+.conexao-erfashion .interface {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 4%;
+}
+
+/* TOPO */
+.conexao-topo {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.conexao-topo h2 {
+  font-size: 2.3rem;
+  color: #202020;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.conexao-topo h2::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 2px;
+  margin: 14px auto 0;
+  background: linear-gradient(90deg, #d6b98c, #f2d9c3);
+}
+
+.conexao-topo .subtitle-topo {
+  font-size: 1rem;
+  color: #5f5f5f;
+  line-height: 1.7;
+}
+
+/* CONTEÚDO */
+.conexao-conteudo {
+  display: flex;
+  justify-content: center;
+}
+
+/* CTA GRID */
+.conexao-cta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  width: 100%;
+}
+
+/* CARD BASE */
+.card-rede {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px;
+  border: 1px solid rgba(214, 185, 140, 0.35);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  position: relative;
+}
+
+.card-rede:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+}
+
+/* ÍCONE */
+.card-rede i {
+  font-size: 2.3rem;
+  color: #d6b98c;
+  margin-bottom: 14px;
+  display: inline-block;
+}
+
+/* TÍTULO */
+.card-rede h3 {
+  font-size: 1.2rem;
+  color: #202020;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+/* TEXTO */
+.card-rede p {
+  font-size: 0.95rem;
+  color: #5f5f5f;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* BOTÃO */
+.card-rede a {
+  display: inline-block;
+  padding: 10px 26px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: #202020;
+  background: linear-gradient(90deg, #f2d9c3, #d6b98c);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.card-rede a:hover {
+  opacity: 0.85;
+  transform: scale(1.03);
+}
+
+/* DIFERENCIAÇÃO SUTIL */
+.card-rede.whatsapp {
+  border-color: rgba(214, 185, 140, 0.55);
+}
+
+.card-rede.whatsapp::before {
+  content: "VIP";
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background: #f2d9c3;
+  color: #202020;
+}
+
+/* ===============================
    FOOTER ER FASHION
    =============================== */
 
- .footer-erfashion {
-   background-color: #f7c8ce;
-   padding: 50px 0 30px;
-   color: #202020;
-   font-family: 'Arial', sans-serif;
-   border-top: 2px solid rgba(214, 185, 140, 0.3);
- }
+.footer-erfashion {
+  background-color: #f7c8ce;
+  padding: 50px 0 30px;
+  color: #202020;
+  font-family: 'Arial', sans-serif;
+  border-top: 2px solid rgba(214, 185, 140, 0.3);
+}
 
- .footer-erfashion .interface {
-   max-width: 1200px;
-   margin: 0 auto;
-   padding: 0 4%;
- }
+.footer-erfashion .interface {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 4%;
+}
 
- /* BLOCO SUPERIOR */
- .footer-top {
-   display: flex;
-   justify-content: space-between;
-   align-items: flex-start;
-   flex-wrap: wrap;
-   margin-bottom: 30px;
-   gap: 20px;
- }
+/* BLOCO SUPERIOR */
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  gap: 20px;
+}
 
- /* CNPJ & ENDEREÇO */
- .footer-info h4 {
-   font-size: 0.95rem;
-   line-height: 1.5;
-   margin-bottom: 6px;
-   color: #5f5f5f;
- }
+/* CNPJ & ENDEREÇO */
+.footer-info h4 {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 6px;
+  color: #5f5f5f;
+}
 
- /* REDES SOCIAIS */
- .footer-redes {
-   display: flex;
-   gap: 18px;
- }
+/* REDES SOCIAIS */
+.footer-redes {
+  display: flex;
+  gap: 18px;
+}
 
- .footer-redes a {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   width: 42px;
-   height: 42px;
-   border-radius: 50%;
-   background: linear-gradient(135deg, #f2d9c3, #d6b98c);
-   color: #202020;
-   font-size: 1.4rem;
-   transition: transform 0.3s ease, opacity 0.3s ease;
- }
+.footer-redes a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f2d9c3, #d6b98c);
+  color: #202020;
+  font-size: 1.4rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
 
- .footer-redes a:hover {
-   transform: scale(1.1);
-   opacity: 0.85;
- }
+.footer-redes a:hover {
+  transform: scale(1.1);
+  opacity: 0.85;
+}
 
- /* BLOCO INFERIOR */
- .footer-bottom {
-   text-align: center;
-   border-top: 1px solid rgba(214, 185, 140, 0.2);
-   padding-top: 20px;
- }
+/* BLOCO INFERIOR */
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(214, 185, 140, 0.2);
+  padding-top: 20px;
+}
 
- .footer-bottom h4 {
-   font-size: 0.9rem;
-   color: #202020;
-   margin-bottom: 8px;
- }
+.footer-bottom h4 {
+  font-size: 0.9rem;
+  color: #202020;
+  margin-bottom: 8px;
+}
 
- .footer-bottom p {
-   font-size: 0.85rem;
-   color: #5f5f5f;
- }
+.footer-bottom p {
+  font-size: 0.85rem;
+  color: #5f5f5f;
+}
 
- .footer-bottom span {
-   font-weight: 600;
-   color: #E6005C;
- }
+.footer-bottom span {
+  font-weight: 600;
+  color: #E6005C;
+}
 
- .footer-bottom a {
-   text-decoration: none;
- }
+.footer-bottom a {
+  text-decoration: none;
+}
 
- /* RESPONSIVIDADE */ 
+/* RESPONSIVIDADE */
 
-@media screen and (max-width: 1020px){
-    /* CLASSES GERAIS */
-    .flex{
-        flex-direction: column;
-    }
+@media screen and (max-width: 1020px) {
 
-    /* MENU */
-    .menu-desktop, .btn-topo {
-        display: none;
-    }    
-
-    .btn-abrir-menu {
-        display: block;
-    }
-
+  /* CLASSES GERAIS */
+  .flex {
+    flex-direction: column;
   }
+
+  /* MENU */
+  .menu-desktop,
+  .btn-topo,
+  .redes-sociais-topo {
+    display: none;
+  }
+
+  .txt-topo-menu {
+    font-size: 14px;
+    padding: 6px 0;
+  }
+
+  .logo img {
+    width: 70px;
+    top: 30%;
+  }
+
+  .topo-catalogo strong {
+    font-size: 24px;
+  }
+
+  .topo-catalogo span {
+    font-size: 14px;
+  }
+
+  section.box-colecao-da-semana {
+    padding: 30px 8%;
+  }
+
+  .produtos-destaque {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .box-colecao-da-semana h2 {
+    font-size: 33px;
+  }
+
+  .box-colecao-da-semana .subtitle-topo {
+    font-size: 16px;
+  }
+
+  .produtos-destaque .tela-produto {
+  max-width: 280px;
+  background-color: #fff;
+  border-radius: 20px;
+  border: 1.5px solid #d6b98c;
+  box-shadow: 0px 5px 12px #9c9c9c;
+  padding: 20px;
+  width: 280px;
+  height: 500px;
+}
+
+
+
+
+
+}
