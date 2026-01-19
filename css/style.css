@@ -14,6 +14,68 @@ body {
   transition: .5s;
 }
 
+/* ===============================
+   BOTÃO FLUTUANTE WHATSAPP
+   =============================== */
+
+.btn-flutuante {
+  position: fixed;
+  bottom: 22px;
+  right: 18px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* BALÃO DE TEXTO */
+.btn-flutuante .balao {
+  background: #25D366;
+  color: #fff;
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 18px;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  animation: balaoPulse 2.5s infinite;
+}
+
+/* BOTÃO */
+.btn-flutuante button {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: #25D366;
+  color: #fff;
+  font-size: 26px;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+/* HOVER */
+.btn-flutuante button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.7);
+}
+
+/* ANIMAÇÃO BALÃO */
+@keyframes balaoPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 /* PADRÃO DA PÁGINA */
 
 .interface {
@@ -555,12 +617,7 @@ section.box-cliente-vip {
 
 /* RESPONSIVIDADE */
 
-@media screen and (max-width: 1020px) {
-
-  /* CLASSES GERAIS */
-  .flex {
-    flex-direction: column;
-  }
+@media screen and (max-width: 768px) {
 
   /* MENU */
   .menu-desktop,
@@ -569,54 +626,217 @@ section.box-cliente-vip {
     display: none;
   }
 
+  .btn-flutuante {
+    bottom: 16px;
+    right: 14px;
+  }
+
+  .btn-flutuante .balao {
+    font-size: 12px;
+    padding: 7px 10px;
+  }
+
+  .btn-flutuante button {
+    width: 52px;
+    height: 52px;
+    font-size: 24px;
+  }
+
+  /* ===== RESET VISUAL ===== */
+  body {
+    font-size: 15px;
+  }
+
+  h2 {
+    font-size: 26px;
+  }
+
+  .subtitle-topo {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .interface {
+    padding: 0 5%;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    height: auto;
+    padding: 12px 0;
+    position: relative;
+  }
+
   .txt-topo-menu {
-    font-size: 14px;
-    padding: 6px 0;
+    font-size: 13px;
+    padding: 6px 8px;
   }
 
   .logo img {
-    width: 70px;
-    top: 30%;
+    position: relative;
+    width: 65px;
+    top: auto;
+    left: auto;
+    display: block;
+    margin: 10px auto 0;
+  }
+
+  .menu-desktop,
+  .redes-sociais-topo {
+    display: none;
+  }
+
+  main {
+    padding-top: 0;
+  }
+
+  /* ===== TOPO CATÁLOGO ===== */
+  .topo-catalogo {
+    padding: 16px;
+    border-radius: 14px;
   }
 
   .topo-catalogo strong {
-    font-size: 24px;
+    font-size: 30px;
+    line-height: 1.2;
   }
 
   .topo-catalogo span {
     font-size: 14px;
   }
 
+  /* ===== COLEÇÃO DA SEMANA ===== */
   section.box-colecao-da-semana {
-    padding: 30px 8%;
+    padding: 40px 0;
   }
 
+  /* GRID DE PRODUTOS */
   .produtos-destaque {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 
-  .box-colecao-da-semana h2 {
-    font-size: 33px;
+  /* CARD PRODUTO */
+  .produtos-destaque .tela-produto {
+    width: 100%;
+    height: auto;
+    padding: 12px;
+    border-radius: 16px;
   }
 
-  .box-colecao-da-semana .subtitle-topo {
+  /* IMAGEM */
+  .tela-produto img {
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  /* TEXTO DO PRODUTO */
+  .produtos-destaque .tela-produto h3 {
+    font-size: 15px;
+    margin-top: 10px;
+    line-height: 1.2;
+  }
+
+  .produtos-destaque .tela-produto p {
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  /* BOTÃO PADRÃO */
+  button.comprar-agora {
+    width: 100%;
+    font-size: 14px;
+    padding: 12px 0;
+    margin-top: 10px;
+    border-radius: 30px;
+  }
+
+  /* ===== CLIENTE VIP ===== */
+  section.box-cliente-vip {
+    padding: 50px 0;
+  }
+
+  .box-cliente-vip .flex {
+    padding: 35px 25px;
+  }
+
+  .box-cliente-vip h2 {
+    font-size: 24px;
+  }
+
+  .box-cliente-vip p {
+    font-size: 14px;
+  }
+
+  .vantagens-clube li {
+    font-size: 14px;
+  }
+
+  .descricao-vantagens {
+    font-size: 13px;
+  }
+
+  .btn-vip {
+    width: 100%;
+    font-size: 14px;
+    padding: 14px 0;
+  }
+
+  /* ===== CONEXÃO ER FASHION ===== */
+  .conexao-erfashion {
+    padding: 60px 0;
+  }
+
+  .conexao-topo h2 {
+    font-size: 24px;
+  }
+
+  .conexao-cta {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card-rede {
+    padding: 24px;
+  }
+
+  .card-rede h3 {
     font-size: 16px;
   }
 
-  .produtos-destaque .tela-produto {
-  max-width: 280px;
-  background-color: #fff;
-  border-radius: 20px;
-  border: 1.5px solid #d6b98c;
-  box-shadow: 0px 5px 12px #9c9c9c;
-  padding: 20px;
-  width: 280px;
-  height: 500px;
-}
+  .card-rede p {
+    font-size: 14px;
+  }
 
+  .card-rede a {
+    width: 100%;
+    text-align: center;
+    padding: 12px 0;
+  }
 
+  /* ===== FOOTER ===== */
+  .footer-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
+  .footer-info h4 {
+    font-size: 13px;
+  }
 
+  .footer-redes {
+    justify-content: center;
+  }
+
+  .footer-bottom h4 {
+    font-size: 13px;
+  }
+
+  .footer-bottom p {
+    font-size: 12px;
+  }
 
 }
