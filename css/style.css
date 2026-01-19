@@ -738,8 +738,8 @@ section.box-cliente-vip {
    ========================= */
 
 .menu-hamburguer {
-    position: fixed; /* fixo no topo */
-    top: 5%;
+    position: absolute; /* fixo no topo */
+    top: 25%;
     left: 0;
     display: none; /* só aparece no mobile */
     width: 100%;
@@ -961,7 +961,7 @@ section.box-cliente-vip {
   }
 
   .produtos-destaque .tela-produto p {
-    font-size: 14px;
+    font-size: 22px;
     margin-top: 4px;
   }
 
