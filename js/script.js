@@ -1,3 +1,22 @@
+// MENU HAMBURGUER
+
+// Seleciona o botão e o menu
+let btnMenu = document.getElementById('btn-hamburguer');
+let menu = document.querySelector('.menu-mobile');
+
+// Abre/Fecha o menu ao clicar no botão
+btnMenu.addEventListener('click', () => {
+    menu.classList.toggle('abrir-menu');
+});
+
+// Fecha o menu ao clicar em qualquer link
+menu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        menu.classList.remove('abrir-menu');
+    });
+});
+
+
 // MULTIPLAS IMAGENS POR PRODUTO - SLIDER
 
 document.querySelectorAll('.tela-produto').forEach(produto => {
@@ -26,3 +45,5 @@ document.querySelectorAll('.tela-produto').forEach(produto => {
     });
   });
 });
+
+

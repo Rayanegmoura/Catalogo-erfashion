@@ -415,6 +415,29 @@ button.comprar-agora:hover {
   transform: scale(1.2);
 }
 
+.btn-mais button {
+  margin-top: 30px;
+  background: #D6B96E;
+  color: #fff;
+  font-family: 'Zain', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 30px;
+  padding: 12px 28px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(214, 185, 110, 0.6);
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.btn-mais button:hover {
+  background: #a88542;
+  box-shadow: 0 8px 20px rgba(214, 185, 110, 0.8);
+  transform: translateY(-2px);
+}
+
 /* BLOCO CLIENTE VIP — NEUTRO PREMIUM */
 
 section.box-cliente-vip {
@@ -710,6 +733,111 @@ section.box-cliente-vip {
   text-decoration: none;
 }
 
+/* =========================
+   BOTÃO HAMBÚRGUER MODERNO
+   ========================= */
+
+.menu-hamburguer {
+    position: fixed; /* fixo no topo */
+    top: 5%;
+    left: 0;
+    display: none; /* só aparece no mobile */
+    width: 100%;
+    text-align: right;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.menu-hamburguer button {
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 12px;
+    padding: 10px 14px;
+
+    transition: all 0.3s ease;
+}
+
+/* =========================
+   MENU DROPDOWN CHIC
+   ========================= */
+.menu-mobile {
+    display: none; /* escondido por padrão */
+    position: absolute;
+    top: 100%; /* logo abaixo do botão */
+    left: 0;
+    width: 100%;
+    background: #F7F2EB; /* bege claro */
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    overflow: hidden;
+    text-align: center;
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: all 0.35s ease;
+    z-index: 999;
+}
+
+.menu-mobile.abrir-menu {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Lista de links */
+.menu-mobile ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-mobile ul li a {
+    display: block;
+    padding: 16px 20px;
+    text-decoration: none;
+    color: #202020;
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Hover elegante */
+.menu-mobile ul li a:hover {
+    color: #a88542;
+}
+
+.menu-mobile ul li a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 8px;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 2px;
+    background: #E89AA3; /* rosa chic */
+    transition: width 0.3s ease;
+}
+
+.menu-mobile ul li a:hover::after {
+    width: 60%;
+}
+
+/* RESPONSIVIDADE */
+@media screen and (max-width: 992px) {
+    .menu-hamburguer {
+        display: block;
+    }
+    .menu-desktop {
+        display: none;
+    }
+}
+
+
 /* RESPONSIVIDADE */
 
 @media screen and (max-width: 768px) {
@@ -758,7 +886,6 @@ section.box-cliente-vip {
   /* ===== HEADER ===== */
   header {
     height: auto;
-    padding: 12px 0;
     position: relative;
   }
 
@@ -776,11 +903,6 @@ section.box-cliente-vip {
     margin: 10px auto 0;
   }
 
-  .menu-desktop,
-  .redes-sociais-topo {
-    display: none;
-  }
-
   main {
     padding-top: 0;
   }
@@ -792,7 +914,7 @@ section.box-cliente-vip {
   }
 
   .topo-catalogo strong {
-    font-size: 30px;
+    font-size: 35px;
     line-height: 1.2;
   }
 
@@ -802,7 +924,7 @@ section.box-cliente-vip {
 
   /* ===== COLEÇÃO DA SEMANA ===== */
   section.box-colecao-da-semana {
-    padding: 40px 0;
+    padding: 20px 0;
   }
 
   /* GRID DE PRODUTOS */
@@ -852,11 +974,10 @@ section.box-cliente-vip {
     border-radius: 30px;
   }
 
-
   /* ===== BOX CLIENTE VIP ===== */
 
   .box-cliente-vip .flex {
-    padding: 35px 25px;
+    padding: 32px 25px;
   }
 
   .box-cliente-vip h2 {
