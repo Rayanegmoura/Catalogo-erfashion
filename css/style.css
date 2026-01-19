@@ -218,7 +218,7 @@ main {
 /* BEM VINDO */
 
 section.box-txt-principal {
-  padding: 10px 4%;
+  padding: 30px 4%;
 }
 
 section.box-txt-principal .txt-bem-vindo {
@@ -251,7 +251,7 @@ section.box-txt-principal .txt-bem-vindo {
 /* COLEÇÃO DA SEMANA */
 
 section.box-colecao-da-semana {
-  padding: 70px 4%;
+  padding: 50px 4%;
 }
 
 section.box-colecao-da-semana .flex {
@@ -262,10 +262,9 @@ section.box-colecao-da-semana .flex {
 }
 
 .produtos-destaque {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 colunas iguais */
   gap: 50px;
-  justify-content: space-around;
 }
 
 .produtos-destaque .tela-produto {
@@ -294,34 +293,35 @@ section.box-colecao-da-semana .flex {
 }
 
 .produtos-destaque .tela-produto h3 {
-  font-size: 22px;
+  font-size: 16.5px;
   color: #202020;
 }
 
 .produtos-destaque .tela-produto p {
+  font-size: 20px;
   color: #D16C7C;
   font-weight: 600;
 }
 
 button.comprar-agora {
-  margin-top: 15px;
-  background: linear-gradient(135deg, #F3DFA3, #D6B96E);
+  background: linear-gradient(90deg, #D6B96E, #F3DFA3); /* dourado quente e elegante */
   color: #fff;
-  font-family: 'Zain', sans-serif !important;
-  font-weight: normal;
+  font-family: 'Zain', sans-serif;
+  font-weight: 700;
   font-size: 16px;
   border-radius: 30px;
-  padding: 10px 20px;
+  padding: 12px 28px;
   border: none;
   cursor: pointer;
-  box-shadow: 0px 5px 12px #9c9c9c;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(214, 185, 110, 0.6);
+  margin-top: 10px;
 }
 
 button.comprar-agora:hover {
-  background: #c7a15a;
-  color: #fff;
-  box-shadow: 0 0 20px rgba(199, 161, 90, .5);
-  transform: scale(1.05);
+  background: linear-gradient(90deg, #F3DFA3, #D6B96E); /* efeito sutil de movimento */
+  box-shadow: 0 8px 20px rgba(214, 185, 110, 0.8);
+  transform: translateY(-2px);
 }
 
 /* BLOCO CLIENTE VIP — NEUTRO PREMIUM */
