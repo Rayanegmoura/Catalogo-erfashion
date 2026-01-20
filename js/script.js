@@ -1,106 +1,123 @@
-// MENU HAMBURGUER
-
-// Seleciona o botão e o menu
+// 1. MENU HAMBURGUER
 let btnMenu = document.getElementById('btn-hamburguer');
 let menu = document.querySelector('.menu-mobile');
 
-// Abre/Fecha o menu ao clicar no botão
 btnMenu.addEventListener('click', () => {
     menu.classList.toggle('abrir-menu');
 });
 
-// Fecha o menu ao clicar em qualquer link
 menu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
         menu.classList.remove('abrir-menu');
     });
 });
 
+// 2. CARREGAR PRODUTOS DO JSON EXTERNO
+async function carregarProdutos() {
+    const container = document.getElementById('container-produtos');
+    if (!container) return;
 
-// MULTIPLAS IMAGENS POR PRODUTO - SLIDER
+    try {
+        const resposta = await fetch('produtos.json'); // Busca o arquivo criado no Passo 1
+        const produtos = await resposta.json();
 
-document.querySelectorAll('.tela-produto').forEach(produto => {
-  const imgs = produto.querySelectorAll('.slider-produto img');
-  const dots = produto.querySelectorAll('.slider-dots .dot');
-  let index = 0;
+        container.innerHTML = ""; 
 
-  const showImg = i => {
-    imgs.forEach(img => img.classList.remove('active'));
-    dots.forEach(dot => dot.classList.remove('active'));
-    imgs[i].classList.add('active');
-    dots[i].classList.add('active');
-  };
+        produtos.forEach(produto => {
+            const tagTexto = produto.tags && produto.tags.length > 0 ? produto.tags[0] : "";
+            const tagClasse = tagTexto.toLowerCase(); 
+            const classesProduto = `tela-produto ${tagTexto ? 'tag ' + tagClasse : ''}`;
 
-  // clicar na imagem para avançar
-  produto.querySelector('.slider-produto').addEventListener('click', () => {
-    index = (index + 1) % imgs.length;
-    showImg(index);
-  });
+            const dotsHTML = produto.imagens.map((_, i) => 
+                `<span class="dot ${i === 0 ? 'active' : ''}"></span>`
+            ).join('');
 
-  // clicar nos dots
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      index = i;
-      showImg(index);
+            const imgsHTML = produto.imagens.map((img, i) => 
+                `<img src="${img}" alt="${produto.nome}" class="${i === 0 ? 'active' : ''}">`
+            ).join('');
+
+            container.innerHTML += `
+                <div class="${classesProduto}" data-label="${tagTexto}">
+                    <div class="slider-produto">
+                        ${imgsHTML}
+                    </div>
+                    <div class="slider-dots">
+                        ${dotsHTML}
+                    </div>
+                    <h3>${produto.nome}</h3>
+                    <p>R$ ${produto.preco.toFixed(2).replace('.', ',')}</p>
+                    <button class="comprar-agora"> <i class="bi bi-whatsapp"></i> Comprar Agora</button>
+                </div>
+            `;
+        });
+
+        // Inicializa os sliders e whatsapp APÓS carregar os produtos
+        inicializarSliders();
+        inicializarWhatsApp();
+
+    } catch (erro) {
+        console.error("Erro ao carregar JSON:", erro);
+    }
+}
+
+// 3. SLIDERS (PRODUTOS)
+
+function inicializarSliders() {
+    // Agora seleciona APENAS os cards de produtos
+    const containers = document.querySelectorAll('.tela-produto');
+
+    containers.forEach(container => {
+        // Busca imagens APENAS do slider de produtos
+        const imgs = container.querySelectorAll('.slider-produto img');
+        const dots = container.querySelectorAll('.slider-dots .dot');
+        const clickArea = container.querySelector('.slider-produto');
+        let index = 0;
+
+        if (!clickArea || imgs.length === 0) return;
+
+        const mostrar = i => {
+            imgs.forEach(img => img.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            imgs[i].classList.add('active');
+            if (dots[i]) dots[i].classList.add('active');
+        };
+
+        clickArea.onclick = () => {
+            index = (index + 1) % imgs.length;
+            mostrar(index);
+        };
+
+        dots.forEach((dot, i) => {
+            dot.onclick = (e) => {
+                e.stopPropagation();
+                index = i;
+                mostrar(index);
+            };
+        });
     });
-  });
-});
+}
 
-// MULTIPLAS IMAGENS - SLIDER LOJA FISICA
+// 4. WHATSAPP
+function inicializarWhatsApp() {
+    const numeroWhats = "5521987209252";
+    
+    document.querySelectorAll('.comprar-agora').forEach(botao => {
+        botao.onclick = function() {
+            const card = this.closest('.tela-produto');
+            const nome = card.querySelector('h3').innerText;
+            const valor = card.querySelector('p').innerText;
+            const img = card.querySelector('img.active').src;
 
-document.querySelectorAll('.loja-fisica').forEach(produto => {
-  const imgs = produto.querySelectorAll('.slider-produto img');
-  const dots = produto.querySelectorAll('.slider-dots .dot');
-  let index = 0;
-
-  const showImg = i => {
-    imgs.forEach(img => img.classList.remove('active'));
-    dots.forEach(dot => dot.classList.remove('active'));
-    imgs[i].classList.add('active');
-    dots[i].classList.add('active');
-  };
-
-  // clicar na imagem para avançar
-  produto.querySelector('.slider-produto').addEventListener('click', () => {
-    index = (index + 1) % imgs.length;
-    showImg(index);
-  });
-
-  // clicar nos dots
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      index = i;
-      showImg(index);
+            let msg = `Oi! Quero comprar: ${nome} - ${valor}\nImagem: ${img}`;
+            window.open(`https://wa.me/${numeroWhats}?text=${encodeURIComponent(msg)}`, '_blank');
+        };
     });
-  });
+}
+
+// INICIAR TUDO
+document.addEventListener('DOMContentLoaded', () => {
+    carregarProdutos(); // Carrega o JSON e inicia sliders dos produtos
+    // Se a Loja Física não depende do JSON, garantimos que o slider dela inicie aqui também
+    inicializarSliders(); 
 });
-
-
-// LINK AUTOMATICA WHATSAPP
-
-const numeroWhats = "5521987209252"; // seu WhatsApp
-
-document.querySelectorAll('.tela-produto').forEach(produto => {
-    const nome = produto.querySelector('h3').innerText;
-    const valor = produto.querySelector('p').innerText;
-    const primeiraImagem = produto.querySelector('.slider-produto img.active')?.src || produto.querySelector('.slider-produto img')?.src;
-    const botao = produto.querySelector('.comprar-agora');
-
-    botao.addEventListener('click', () => {
-        // Monta mensagem completa com link da imagem
-        let mensagem = `Oi! Quero comprar o produto: ${nome} - ${valor}`;
-        if(primeiraImagem) {
-            mensagem += `\nImagem: ${primeiraImagem}`;
-        }
-        const link = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`;
-        window.open(link, '_blank');
-    });
-});
-
-
-
-
-
-
-
 

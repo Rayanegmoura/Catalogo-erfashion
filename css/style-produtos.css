@@ -9,7 +9,7 @@
   padding: 4px 8px;
   border-radius: 12px;
   font-weight: 600;
-  z-index: 5;
+  z-index: 1;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
@@ -28,4 +28,51 @@
 .tela-produto.tag.summer::before {
   background: #f2d9c3;
   color: #202020;
+}
+
+.tela-produto.tag.destaque::before {
+  background: #E89AA3;
+  color: #202020;
+}
+
+
+/* Ajuste para telas de até 768px (Mobile) */
+@media screen and (max-width: 768px) {
+    .produtos-destaque {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas no mobile */
+        gap: 15px; /* Diminui o espaço entre os cards */
+        padding: 0 10px;
+    }
+
+    .produtos-destaque .tela-produto {
+        width: 100%; /* Faz o card ocupar a largura da coluna */
+        max-width: none;
+        height: auto; /* Deixa o card crescer conforme o conteúdo */
+        padding: 10px;
+    }
+
+    .tela-produto img {
+        height: 250px; /* Ajusta a altura da imagem no mobile */
+    }
+
+    .produtos-destaque .tela-produto h3 {
+        font-size: 14px; /* Texto um pouco menor para caber */
+    }
+
+    .produtos-destaque .tela-produto p {
+        font-size: 18px;
+    }
+
+    button.comprar-agora {
+        padding: 10px 15px;
+        font-size: 14px;
+        width: 100%; /* Botão ocupa a largura total do card */
+    }
+}
+
+/* Se quiser que fique apenas 1 coluna em celulares muito pequenos (480px) */
+@media screen and (max-width: 480px) {
+    .produtos-destaque {
+        grid-template-columns: 1fr; /* 1 produto por linha */
+    }
 }
