@@ -76,6 +76,30 @@ document.querySelectorAll('.loja-fisica').forEach(produto => {
 });
 
 
+// LINK AUTOMATICA WHATSAPP
+
+const numeroWhats = "5521987209252"; // seu WhatsApp
+
+document.querySelectorAll('.tela-produto').forEach(produto => {
+    const nome = produto.querySelector('h3').innerText;
+    const valor = produto.querySelector('p').innerText;
+    const primeiraImagem = produto.querySelector('.slider-produto img.active')?.src || produto.querySelector('.slider-produto img')?.src;
+    const botao = produto.querySelector('.comprar-agora');
+
+    botao.addEventListener('click', () => {
+        // Monta mensagem completa com link da imagem
+        let mensagem = `Oi! Quero comprar o produto: ${nome} - ${valor}`;
+        if(primeiraImagem) {
+            mensagem += `\nImagem: ${primeiraImagem}`;
+        }
+        const link = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`;
+        window.open(link, '_blank');
+    });
+});
+
+
+
+
 
 
 
