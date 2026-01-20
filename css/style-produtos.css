@@ -1,0 +1,31 @@
+/* BASE DA TAG */
+.tela-produto.tag::before {
+  content: attr(data-label); /* pega o texto do HTML */
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  z-index: 5;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* CORES POR TIPO */
+.tela-produto.tag.novo::before {
+  background: #f2d9c3;
+  color: #202020;
+}
+
+.tela-produto.tag.promo::before {
+  background: #b80000;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.tela-produto.tag.summer::before {
+  background: #f2d9c3;
+  color: #202020;
+}
