@@ -72,9 +72,11 @@ body {
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.06);
   }
+
   100% {
     transform: scale(1);
   }
@@ -263,8 +265,16 @@ section.box-colecao-da-semana .flex {
 
 .produtos-destaque {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 colunas iguais */
+  grid-template-columns: repeat(4, 1fr);
+  /* 4 colunas iguais */
   gap: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  /* Isso permite que os itens pulem para a próxima linha */
+  justify-content: center;
+  /* Centraliza os cards no espaço disponível */
+  gap: 20px;
+  /* Espaçamento entre os cards */
 }
 
 .produtos-destaque .tela-produto {
@@ -276,13 +286,6 @@ section.box-colecao-da-semana .flex {
   padding: 20px;
   width: 280px;
   height: 500px;
-}
-
-.tela-produto {
-  width: 100%;
-  height: 300px;
-  overflow: hidden;
-  border-radius: 12px;
 }
 
 .tela-produto img {
@@ -304,7 +307,8 @@ section.box-colecao-da-semana .flex {
 }
 
 button.comprar-agora {
-  background: linear-gradient(90deg, #D6B96E, #F3DFA3); /* dourado quente e elegante */
+  background: linear-gradient(90deg, #D6B96E, #F3DFA3);
+  /* dourado quente e elegante */
   color: #fff;
   font-family: 'Zain', sans-serif;
   font-weight: 700;
@@ -319,7 +323,8 @@ button.comprar-agora {
 }
 
 button.comprar-agora:hover {
-  background: linear-gradient(90deg, #F3DFA3, #D6B96E); /* efeito sutil de movimento */
+  background: linear-gradient(90deg, #F3DFA3, #D6B96E);
+  /* efeito sutil de movimento */
   box-shadow: 0 8px 20px rgba(214, 185, 110, 0.8);
   transform: translateY(-2px);
 }
@@ -343,7 +348,8 @@ button.comprar-agora:hover {
   height: 280px;
   overflow: hidden;
   border-radius: 12px;
-  cursor: pointer; /* indica que pode clicar/tocar */
+  cursor: pointer;
+  /* indica que pode clicar/tocar */
   position: relative;
 }
 
@@ -403,7 +409,8 @@ button.comprar-agora:hover {
 .slider-dots .dot {
   width: 10px;
   height: 10px;
-  background: rgba(214,185,110,0.4); /* dourado suave */
+  background: rgba(214, 185, 110, 0.4);
+  /* dourado suave */
   border-radius: 50%;
   display: inline-block;
   cursor: pointer;
@@ -411,7 +418,8 @@ button.comprar-agora:hover {
 }
 
 .slider-dots .dot.active {
-  background: #D6B96E; /* dourado principal */
+  background: #D6B96E;
+  /* dourado principal */
   transform: scale(1.2);
 }
 
@@ -738,103 +746,110 @@ section.box-cliente-vip {
    ========================= */
 
 .menu-hamburguer {
-    position: absolute; /* fixo no topo */
-    top: 25%;
-    left: 0;
-    display: none; /* só aparece no mobile */
-    width: 100%;
-    text-align: right;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    z-index: 1000;
+  position: absolute;
+  /* fixo no topo */
+  top: 25%;
+  left: 0;
+  display: none;
+  /* só aparece no mobile */
+  width: 100%;
+  text-align: right;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  z-index: 1000;
 }
 
 .menu-hamburguer button {
-    background: transparent;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    color: #fff;
-    border-radius: 12px;
-    padding: 10px 14px;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #fff;
+  border-radius: 12px;
+  padding: 10px 14px;
 
-    transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 /* =========================
    MENU DROPDOWN CHIC
    ========================= */
 .menu-mobile {
-    display: none; /* escondido por padrão */
-    position: absolute;
-    top: 100%; /* logo abaixo do botão */
-    left: 0;
-    width: 100%;
-    background: #F7F2EB; /* bege claro */
-    border-radius: 0 0 16px 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    overflow: hidden;
-    text-align: center;
-    transform: translateY(-20px);
-    opacity: 0;
-    transition: all 0.35s ease;
-    z-index: 999;
+  display: none;
+  /* escondido por padrão */
+  position: absolute;
+  top: 100%;
+  /* logo abaixo do botão */
+  left: 0;
+  width: 100%;
+  background: #F7F2EB;
+  /* bege claro */
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  text-align: center;
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: all 0.35s ease;
+  z-index: 999;
 }
 
 .menu-mobile.abrir-menu {
-    display: block;
-    transform: translateY(0);
-    opacity: 1;
+  display: block;
+  transform: translateY(0);
+  opacity: 1;
 }
 
 /* Lista de links */
 .menu-mobile ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .menu-mobile ul li a {
-    display: block;
-    padding: 16px 20px;
-    text-decoration: none;
-    color: #202020;
-    font-weight: 500;
-    font-size: 1rem;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    position: relative;
+  display: block;
+  padding: 16px 20px;
+  text-decoration: none;
+  color: #202020;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 /* Hover elegante */
 .menu-mobile ul li a:hover {
-    color: #a88542;
+  color: #a88542;
 }
 
 .menu-mobile ul li a::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: 8px;
-    transform: translateX(-50%);
-    width: 0%;
-    height: 2px;
-    background: #E89AA3; /* rosa chic */
-    transition: width 0.3s ease;
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 2px;
+  background: #E89AA3;
+  /* rosa chic */
+  transition: width 0.3s ease;
 }
 
 .menu-mobile ul li a:hover::after {
-    width: 60%;
+  width: 60%;
 }
 
 /* RESPONSIVIDADE */
 @media screen and (max-width: 992px) {
-    .menu-hamburguer {
-        display: block;
-    }
-    .menu-desktop {
-        display: none;
-    }
+  .menu-hamburguer {
+    display: block;
+  }
+
+  .menu-desktop {
+    display: none;
+  }
 }
 
 
@@ -950,9 +965,9 @@ section.box-cliente-vip {
   }
 
   .slider-dots {
-  margin-top: 5px;
-    gap: 4px; 
-}
+    margin-top: 5px;
+    gap: 4px;
+  }
 
   /* TEXTO DO PRODUTO */
   .produtos-destaque .tela-produto h3 {
@@ -1058,4 +1073,3 @@ section.box-cliente-vip {
   }
 
 }
-
