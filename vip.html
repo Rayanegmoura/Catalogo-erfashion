@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso Antecipado VIP</title>
+    <style>
+        body {
+            background: #1a1a1a; color: #d6b98c;
+            height: 100vh; display: flex; justify-content: center; align-items: center;
+            font-family: 'serif'; text-align: center; margin: 0;
+        }
+        .vip-box {
+            padding: 40px; border: 1px solid #d6b98c; border-radius: 20px;
+            background: #252525; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        input {
+            padding: 12px; border-radius: 5px; border: 1px solid #d6b98c;
+            background: transparent; color: white; text-align: center;
+            font-size: 1.1rem; width: 80%; margin-bottom: 20px;
+        }
+        button {
+            padding: 12px 30px; background: #d6b98c; color: #1a1a1a;
+            border: none; border-radius: 30px; font-weight: bold; cursor: pointer;
+        }
+        .erro { color: #ff4444; font-size: 0.9rem; margin-top: 10px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="vip-box">
+        <h1>Acesso VIP</h1>
+        <p>A nova coleção já está disponível para clientes exclusivas.</p>
+        <input type="password" id="senhaVip" placeholder="Digite sua chave de acesso">
+        <br>
+        <button onclick="verificarSenha()">ENTRAR NA LOJA</button>
+        <p id="mensagemErro" class="erro">Chave incorreta. Verifique o convite no seu WhatsApp.</p>
+    </div>
+
+    <script>
+       function verificarSenha() {
+    const senhaDigitada = document.getElementById('senhaVip').value;
+    
+    if (senhaDigitada === "123456") { // Mesma senha do index.js
+        localStorage.setItem('acessoVip', 'true');
+        window.location.href = 'index.html';
+    } else {
+        document.getElementById('mensagemErro').style.display = 'block';
+    }
+}
+    </script>
+</body>
+</html>

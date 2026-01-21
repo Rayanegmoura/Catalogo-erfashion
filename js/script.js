@@ -1,11 +1,13 @@
 // 0. PÁGINA EM MANUTENÇÃO
 
-// Mude para 'true' para ativar o modo manutenção
-const modoManutencao = true; 
+// ==========================================
+// INTERRUPTOR GERAL (MUDE AQUI)
+// ==========================================
+// --const modoManutencao = true; // true = SITE BLOQUEADO | false = SITE LIBERADO
 
-if (modoManutencao && !window.location.pathname.includes('manutencao.html')) {
-    window.location.href = 'manutencao.html';
-}
+//if (modoManutencao === true) {
+ //   window.location.href = 'manutencao.html';
+//}
 
 
 // 1. MENU HAMBURGUER
@@ -24,24 +26,35 @@ menu.querySelectorAll('a').forEach(link => {
 
 // 2. CARREGAR PRODUTOS DO JSON EXTERNO
 
+// 2. CARREGAR PRODUTOS DO JSON EXTERNO (VERSÃO BLINDADA)
+
 async function carregarProdutos() {
     const container = document.getElementById('container-produtos');
     if (!container) return;
 
-    // Detecta se estamos na página inicial ou na página geral
     const ehPaginaHome = container.getAttribute('data-page') === 'home';
 
     try {
         const resposta = await fetch('produtos.json');
-        let produtos = await resposta.json();
+        const dados = await resposta.json(); // Aqui pegamos o objeto completo { ... }
 
-        // --- LÓGICA DE FILTRAGEM PARA A HOME ---
+        // --- LÓGICA DE MANUTENÇÃO ---
+        if (dados.site_em_manutencao === true) {
+            window.location.href = 'manutencao.html';
+            return; // Mata a função aqui, nada mais abaixo é executado
+        }
+        // ----------------------------
+
+        // Aqui está o "pulo do gato": pegamos apenas a lista de produtos do JSON
+        let produtos = dados.produtos;
+
+        // --- LÓGICA DE FILTRAGEM PARA A HOME (Continua igual, mas agora usando a lista certa) ---
         if (ehPaginaHome) {
             produtos = produtos
                 .filter(produto => 
                     produto.tags && produto.tags.includes("Coleção Nova")
-                ) // Apenas os que têm a tag exata
-                .slice(0, 12); // No máximo 12 itens
+                )
+                .slice(0, 12); 
         }
         // ---------------------------------------
 
@@ -49,7 +62,7 @@ async function carregarProdutos() {
 
         produtos.forEach(produto => {
             const tagTexto = produto.tags && produto.tags.length > 0 ? produto.tags[0] : "";
-            const tagClasse = tagTexto.toLowerCase().replace(/\s+/g, '-'); // Evita espaços em classes CSS
+            const tagClasse = tagTexto.toLowerCase().replace(/\s+/g, '-'); 
             const classesProduto = `tela-produto ${tagTexto ? 'tag ' + tagClasse : ''}`;
 
             const dotsHTML = produto.imagens.map((_, i) => 
@@ -160,4 +173,3 @@ function trocarFoto(elemento) {
     // 4. Adiciona 'active' na que foi clicada
     elemento.classList.add('active');
 }
-
