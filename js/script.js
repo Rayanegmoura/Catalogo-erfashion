@@ -13,19 +13,33 @@ menu.querySelectorAll('a').forEach(link => {
 });
 
 // 2. CARREGAR PRODUTOS DO JSON EXTERNO
+
 async function carregarProdutos() {
     const container = document.getElementById('container-produtos');
     if (!container) return;
 
+    // Detecta se estamos na página inicial ou na página geral
+    const ehPaginaHome = container.getAttribute('data-page') === 'home';
+
     try {
-        const resposta = await fetch('produtos.json'); // Busca o arquivo criado no Passo 1
-        const produtos = await resposta.json();
+        const resposta = await fetch('produtos.json');
+        let produtos = await resposta.json();
+
+        // --- LÓGICA DE FILTRAGEM PARA A HOME ---
+        if (ehPaginaHome) {
+            produtos = produtos
+                .filter(produto => 
+                    produto.tags && produto.tags.includes("Coleção Nova")
+                ) // Apenas os que têm a tag exata
+                .slice(0, 12); // No máximo 12 itens
+        }
+        // ---------------------------------------
 
         container.innerHTML = ""; 
 
         produtos.forEach(produto => {
             const tagTexto = produto.tags && produto.tags.length > 0 ? produto.tags[0] : "";
-            const tagClasse = tagTexto.toLowerCase(); 
+            const tagClasse = tagTexto.toLowerCase().replace(/\s+/g, '-'); // Evita espaços em classes CSS
             const classesProduto = `tela-produto ${tagTexto ? 'tag ' + tagClasse : ''}`;
 
             const dotsHTML = produto.imagens.map((_, i) => 
@@ -51,7 +65,6 @@ async function carregarProdutos() {
             `;
         });
 
-        // Inicializa os sliders e whatsapp APÓS carregar os produtos
         inicializarSliders();
         inicializarWhatsApp();
 

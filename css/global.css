@@ -320,6 +320,49 @@ section.box-colecao-da-semana {
     margin-bottom: 12px;
 }
 
+/* BASE DA TAG */
+.tela-produto.tag::before {
+    content: attr(data-label);
+    /* pega o texto do HTML */
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    z-index: 1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* CORES POR TIPO */
+.tela-produto.tag.novo::before {
+    background: #f2d9c3;
+    color: #202020;
+}
+
+.tela-produto.tag.promo::before {
+    background: #b80000;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.tela-produto.tag.summer::before {
+    background: #f2d9c3;
+    color: #202020;
+}
+
+.tela-produto.tag.destaque::before {
+    background: #E89AA3;
+    color: #202020;
+}
+
+.tela-produto.tag.coleção-nova::before {
+    background: #46bb10;
+    color: #202020;
+}
+
 /* BOLINHAS DAS IMAGENS */
 
 .slider-dots {
@@ -389,44 +432,6 @@ button.comprar-agora:hover {
     background: #a88542;
     box-shadow: 0 8px 20px rgba(214, 185, 110, 0.8);
     transform: translateY(-2px);
-}
-
-/* BASE DA TAG */
-.tela-produto.tag::before {
-    content: attr(data-label);
-    /* pega o texto do HTML */
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-weight: 600;
-    z-index: 1;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-/* CORES POR TIPO */
-.tela-produto.tag.novo::before {
-    background: #f2d9c3;
-    color: #202020;
-}
-
-.tela-produto.tag.promo::before {
-    background: #b80000;
-    color: #fff;
-    text-transform: uppercase;
-}
-
-.tela-produto.tag.summer::before {
-    background: #f2d9c3;
-    color: #202020;
-}
-
-.tela-produto.tag.destaque::before {
-    background: #E89AA3;
-    color: #202020;
 }
 
 
