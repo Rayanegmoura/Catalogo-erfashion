@@ -1,3 +1,4 @@
+
 /* =========================
    BOTÃO HAMBÚRGUER MODERNO
    ========================= */
@@ -228,7 +229,7 @@
 
   /* TEXTO DO PRODUTO */
   .produtos-destaque .tela-produto h3 {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.2;
   }
 
@@ -330,4 +331,3 @@
   }
 
 }
-

@@ -40,5 +40,19 @@
     "descricao": "Vestido longo e floral, perfeito para looks de verão.",
     "imagens": ["img/IMG_8182.jpg", "img/IMG_8028.jpg", "img/IMG_8180.jpg"],
     "tags": ["Destaque"]
+  },
+  {
+    "nome": "Conjunto Estampado",
+    "preco": 189.90,
+    "descricao": "Conjunto leve e estiloso para todas as ocasiões.",
+    "imagens": ["img/IMG_8182.jpg", "img/IMG_8028.jpg", "img/IMG_8180.jpg"],
+    "tags": ["Novo"]
+  },
+  {
+    "nome": "Vestido Longo Floral",
+    "preco": 199.90,
+    "descricao": "Vestido longo e floral, perfeito para looks de verão.",
+    "imagens": ["img/IMG_8182.jpg", "img/IMG_8028.jpg", "img/IMG_8180.jpg"],
+    "tags": ["Destaque"]
   }
 ]
