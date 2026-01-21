@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estamos nos preparando! | Nome da Loja</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #F7F2EB;
+            font-family: 'Zain', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;;
+            text-align: center;
+            color: #202020;
+        }
+        .container {
+            padding: 20px;
+        }
+        .logo-temp {
+            font-size: 3rem;
+            color: #E89AA3;
+            margin-bottom: 20px;
+        }
+        h1 { font-size: 2rem; margin-bottom: 10px; }
+        p { font-size: 1.1rem; color: #666; max-width: 400px; margin: 0 auto 30px auto; }
+        
+        /* Animação simples de carregar */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #fa4b5f;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .btn-whats {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #25d366;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-temp"><i class="bi bi-shop"></i></div>
+        <div class="loader"></div>
+        <h1>Estamos cadastrando novidades!</h1>
+        <p>Nossa nova coleção está ficando incrível. Voltamos em alguns instantes com muitas peças ousadas e estilosas.</p>
+        <a href="https://wa.me/5521987209252" class="btn-whats">
+            <i class="bi bi-whatsapp"></i> Dúvidas? Fale conosco
+        </a>
+    </div>
+</body>
+</html>

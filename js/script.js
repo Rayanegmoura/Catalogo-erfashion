@@ -1,3 +1,13 @@
+// 0. PÁGINA EM MANUTENÇÃO
+
+// Mude para 'true' para ativar o modo manutenção
+const modoManutencao = true; 
+
+if (modoManutencao && !window.location.pathname.includes('manutencao.html')) {
+    window.location.href = 'manutencao.html';
+}
+
+
 // 1. MENU HAMBURGUER
 let btnMenu = document.getElementById('btn-hamburguer');
 let menu = document.querySelector('.menu-mobile');
