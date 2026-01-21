@@ -36,7 +36,6 @@
 </head>
 
 <body>
-
     <header class="menu-principal">
         <div class="anuncios">
             <div class="txt-topo-menu">
@@ -115,34 +114,28 @@
 
     <main id="content">
         <section class="loja-fisica-banner">
-            <h1>Visite nossa loja física</h1>
-            <div class="loja-fisica">
-                <div class="slider-fisica">
-                    <img src="img/IMG_8182.jpg" alt="Produto 1" class="active">
-                    <img src="img/IMG_8028.jpg" alt="Produto 1">
-                    <img src="img/IMG_8180.jpg" alt="Produto 1">
-                     <img src="img/IMG_8028.jpg" alt="Produto 1">
-                    <img src="img/IMG_8180.jpg" alt="Produto 1">
-                     <img src="img/IMG_8028.jpg" alt="Produto 1">
-                    <img src="img/IMG_8180.jpg" alt="Produto 1">
-                </div>
-                <!-- PONTINHOS -->
-                <div class="slider-dots">
-                    <span class="dot active"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </div>
-            </div><!-- PRODUTO -->
-            <p>Peças ousadas, estilosas e feitas pra você se sentir confiante todo dia. Aqui a moda é liberdade, atitude
-                e diversão. Seja você, sem regras, sem padrões.</p>
-            <a href="https://wa.me/5521987209252" class="btn-whatsapp" target="_blank">
-                <i class="bi bi-whatsapp"></i> Fale com a gente
-            </a>
-        </section>
+    <h1>Visite nossa loja física</h1>
+    
+    <div class="container-galeria">
+        <div class="foto-principal">
+            <img src="img/IMG_8182.jpg" id="foto-foco" alt="Destaque Loja">
+        </div>
+
+        <div class="miniaturas-grid">
+            <img src="img/IMG_8182.jpg" class="miniatura active" onclick="trocarFoto(this)">
+            <img src="img/IMG_8028.jpg" class="miniatura" onclick="trocarFoto(this)">
+            <img src="img/IMG_8180.jpg" class="miniatura" onclick="trocarFoto(this)">
+            <img src="img/IMG_8028.jpg" class="miniatura" onclick="trocarFoto(this)">
+            <img src="img/IMG_8180.jpg" class="miniatura" onclick="trocarFoto(this)">
+            <img src="img/IMG_8028.jpg" class="miniatura" onclick="trocarFoto(this)">
+        </div>
+    </div>
+
+    <p>Peças ousadas, estilosas e feitas pra você se sentir confiante todo dia...</p>
+    <a href="https://wa.me/5521987209252" class="btn-whatsapp" target="_blank">
+        <i class="bi bi-whatsapp"></i> Fale com a gente
+    </a>
+</section>
 
         <section class="loja-fisica-info">
             <div class="info-card">
@@ -163,7 +156,10 @@
         </section>
 
         <section class="loja-fisica-mapa">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.9289080724893!2d-43.468153288154305!3d-22.87908443679699!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9bdfc6d0e8f8c7%3A0xa7cb040a07773ce1!2sER%20Fashion!5e0!3m2!1spt-BR!2sbr!4v1768872912006!5m2!1spt-BR!2sbr" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.9289080724893!2d-43.468153288154305!3d-22.87908443679699!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9bdfc6d0e8f8c7%3A0xa7cb040a07773ce1!2sER%20Fashion!5e0!3m2!1spt-BR!2sbr!4v1768872912006!5m2!1spt-BR!2sbr"
+                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
         </section>
     </main>
     <footer class="footer-erfashion">

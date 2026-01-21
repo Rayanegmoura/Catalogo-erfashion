@@ -134,3 +134,20 @@ document.addEventListener('DOMContentLoaded', () => {
     inicializarSliders(); 
 });
 
+// 5. MOSAICO DE FOTOS - LOJA FÍSICA
+
+function trocarFoto(elemento) {
+    // 1. Pega o caminho da imagem clicada
+    const novaSrc = elemento.src;
+    
+    // 2. Altera a imagem principal
+    document.getElementById('foto-foco').src = novaSrc;
+    
+    // 3. Remove a classe 'active' de todas as miniaturas
+    const minis = document.querySelectorAll('.miniatura');
+    minis.forEach(m => m.classList.remove('active'));
+    
+    // 4. Adiciona 'active' na que foi clicada
+    elemento.classList.add('active');
+}
+

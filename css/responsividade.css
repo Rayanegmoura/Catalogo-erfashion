@@ -330,4 +330,17 @@
     font-size: 12px;
   }
 
+
+  /* ===== LOJA FÍSICA ===== */
+
+  @media (max-width: 480px) {
+    .miniatura {
+        width: 45px;
+        height: 45px;
+    }
+    .foto-principal img {
+        height: 350px; /* Diminui um pouco a principal no celular */
+    }
+}
+
 }

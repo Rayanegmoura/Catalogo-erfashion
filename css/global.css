@@ -342,7 +342,7 @@ section.box-colecao-da-semana {
     color: #202020;
 }
 
-.tela-produto.tag.promo::before {
+.tela-produto.tag.promoção::before {
     background: #b80000;
     color: #fff;
     text-transform: uppercase;
@@ -359,8 +359,8 @@ section.box-colecao-da-semana {
 }
 
 .tela-produto.tag.coleção-nova::before {
-    background: #46bb10;
-    color: #202020;
+    background: #ee3cc2;
+    color: #fff;
 }
 
 /* BOLINHAS DAS IMAGENS */

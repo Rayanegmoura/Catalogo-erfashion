@@ -7,36 +7,53 @@
 }
 
 /* BANNER PRINCIPAL */
+
 .loja-fisica-banner h1 {
     font-size: 3rem;
     color: #E89AA3;
-    margin-bottom: 15px;
+    margin: 15px 0;
 }
-
-.loja-fisica-banner p {
-    font-size: 1.0rem;
-    margin-bottom: 25px;
-}
-
-.loja-fisica-banner {
-    margin-bottom: 40px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-}
-
-.slider-produto {
+.container-galeria {
+    max-width: 850px; /* Ajuste conforme a largura do seu site */
+    margin: 30px auto;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.loja-fisica .slider-produto img {
+/* FOTO PRINCIPAL */
+.foto-principal img {
     width: 100%;
-    height: 600px;
+    height: 500px; 
+    object-fit: cover;
+    border-radius: 20px;
     border: 1.5px solid #d6b98c;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* CONTAINER DAS MINIATURAS */
+.miniaturas-grid {
+    display: flex; /* Mudamos para flex para elas ficarem bem juntinhas */
+    justify-content: center;
+    gap: 8px; /* Espaço reduzido entre elas */
+    flex-wrap: wrap;
+}
+
+/* AS MINI FOTOS */
+.miniatura {
+    width: 60px;  /* Tamanho menor que você pediu */
+    height: 60px; /* Mantendo quadrada */
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    border: 1px solid #ccc;
+}
+
+.miniatura:hover, .miniatura.active {
+    opacity: 1;
+    border: 2px solid #d6b98c;
+    transform: scale(1.1); /* Um leve zoom para destacar qual está selecionada */
 }
 
 /* BOTÃO WHATSAPP */
