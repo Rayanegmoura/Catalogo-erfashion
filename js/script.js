@@ -4,34 +4,49 @@
 
 async function controlarAcesso() {
     try {
-        const resposta = await fetch('produtos.json');
+        // Busca o JSON sempre do servidor, nunca do cache
+        const resposta = await fetch('produtos.json', { cache: "no-store" });
         const dados = await resposta.json();
 
-        // Pega a hora exata de Brasília
         const agora = new Date();
-        const horaBrasilia = JSON.parse(JSON.stringify(agora.toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })));
-        const horaAtual = new Date(horaBrasilia).getHours();
+        const horaBrasilia = new Date(agora.toLocaleString("en-US", { timeZone: "America/Sao_Paulo" }));
+        const horaAtual = horaBrasilia.getHours();
 
-        // 1. Manutenção
+        // 1. Verificação de Manutenção
         if (dados.site_em_manutencao) {
             window.location.href = 'manutencao.html';
             return;
         }
 
-        // 2. VIP Dinâmico (Lê do JSON)
-        const inicio = dados.hora_inicio_vip; // Ex: 0
-        const fim = dados.hora_fim_vip;       // Ex: 11
+        const inicio = dados.hora_inicio_vip;
+        const fim = dados.hora_fim_vip;
 
+        // --- ONDE COLOCAR O NOVO TRECHO ---
+        // Se o modo VIP for desligado MANUALMENTE ou o HORÁRIO acabar, limpa o acesso
+        if (!dados.modo_vip || (horaAtual < inicio || horaAtual >= fim)) {
+            sessionStorage.removeItem('acesso_vip_concedido');
+            
+            // Se ele estiver em uma página que não seja a index ou vip, manda pra home
+            // (Opcional: garante que ninguém fique "preso" em páginas VIP após o fim do horário)
+        }
+        // ----------------------------------
+
+        // 2. Lógica de Redirecionamento VIP
         if (dados.modo_vip && (horaAtual >= inicio && horaAtual < fim)) {
             const jaLogouVip = sessionStorage.getItem('acesso_vip_concedido');
+            
             if (!jaLogouVip) {
-                window.location.href = 'vip.html';
+                // Se não está logado e não está na página VIP, redireciona para lá
+                if (!window.location.pathname.includes('vip.html')) {
+                    window.location.href = 'vip.html';
+                }
             }
         }
     } catch (erro) {
         console.error("Erro na validação:", erro);
     }
 }
+
 controlarAcesso();
 
 

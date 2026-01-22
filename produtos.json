@@ -1,6 +1,6 @@
 {
-  "site_em_manutencao": false,
-  "modo_vip": true,
+  "site_em_manutencao": true,
+  "modo_vip": false,
   "senha_vip": "123",
   "hora_inicio_vip": 18,
   "hora_fim_vip": 20,
