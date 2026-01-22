@@ -2,44 +2,146 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acesso VIP | Exclusive</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
     <style>
-        body { background: #1a1a1a; color: #d6b98c; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
-        .box { padding: 40px; border: 1px solid #d6b98c; border-radius: 15px; background: #222; }
-        input { padding: 10px; border-radius: 5px; border: 1px solid #d6b98c; background: transparent; color: #fff; margin: 10px 0; text-align: center; }
-        button { padding: 10px 20px; background: #d6b98c; color: #1a1a1a; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        * { box-sizing: border-box; }
+        body { 
+            background: #121212; 
+            color: #d6b98c; 
+            font-family: 'Segoe UI', Roboto, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+            padding: 20px;
+            text-align: center;
+        }
+        .box { 
+            width: 100%;
+            max-width: 400px; 
+            padding: 40px 20px; 
+            border: 1px solid #d6b98c; 
+            border-radius: 20px; 
+            background: #1a1a1a;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+        
+        /* Animação de erro */
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-8px); }
+            100% { transform: translateX(0); }
+        }
+
+        .icon-lock { font-size: 3rem; margin-bottom: 10px; display: block; }
+        h1 { font-size: 1.8rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        p { font-size: 1rem; opacity: 0.8; margin-bottom: 25px; }
+        
+        input { 
+            width: 100%; 
+            padding: 15px; 
+            border-radius: 10px; 
+            border: 1px solid #d6b98c; 
+            background: transparent; 
+            color: #fff; 
+            margin-bottom: 15px; 
+            text-align: center; 
+            font-size: 1.1rem;
+        }
+        
+        button { 
+            width: 100%; 
+            padding: 15px; 
+            background: #d6b98c; 
+            color: #121212; 
+            border: none; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+        button:active { transform: scale(0.98); }
+        
+        /* Estilo do bloco de erro e convite */
+        #erro { 
+            margin-top: 20px; 
+            display: none; 
+        }
+        .msg-erro-titulo { color: #ff6b6b; font-weight: bold; display: block; margin-bottom: 10px; }
+        .convite-vip { 
+            font-size: 0.9rem; 
+            color: #d6b98c; 
+            text-decoration: none; 
+            border-top: 1px solid #333; 
+            padding-top: 15px; 
+            display: block;
+        }
+        .link-whats {
+            color: #fff;
+            text-decoration: underline;
+            font-weight: bold;
+            display: block;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="box">
-        <h1>Acesso Antecipado VIP</h1>
-        <p>Digite sua chave de acesso para ver a nova coleção.</p>
-        <input type="password" id="senha" placeholder="Sua senha VIP">
-        <br>
-        <button onclick="entrar()">ENTRAR</button>
-        <p id="erro" style="color: red; display: none;">Senha incorreta!</p>
+        <i class="bi bi-shield-lock icon-lock"></i>
+        <h1>Acesso VIP</h1>
+        <p>Esta coleção está disponível apenas para clientes exclusivos no momento.</p>
+        
+        <input type="password" id="senha" placeholder="Digite sua Chave VIP" inputmode="text">
+        <button onclick="entrar()">LIBERAR ACESSO</button>
+        
+        <div id="erro">
+            <span class="msg-erro-titulo">Senha incorreta! Tente novamente...</span>
+            <div class="convite-vip">
+                Ainda não faz parte da nossa lista vip?
+                <a href="https://wa.me/5521987209252?text=Oi!+Quero+fazer+parte+do+grupo+VIP" target="_blank" class="link-whats">
+                    Clique aqui e solicite seu acesso ✨
+                </a>
+            </div>
+        </div>
     </div>
 
     <script>
         async function entrar() {
             const senhaDigitada = document.getElementById('senha').value;
-            // Dica: Você pode até colocar a senha no JSON se quiser, aqui vamos fixar:
-            if (senhaDigitada === "VIP2026") { 
+            const divErro = document.getElementById('erro');
+            const box = document.querySelector('.box');
+
+            if (senhaDigitada === "VIP2026") { //SENHA CORRETA
                 localStorage.setItem('acessoVip', 'true');
                 window.location.href = 'index.html';
             } else {
-                document.getElementById('erro').style.display = 'block';
+                divErro.style.display = 'block';
+                // Efeito de tremer a caixa
+                box.style.animation = "shake 0.4s";
+                setTimeout(() => { box.style.animation = ""; }, 400);
             }
         }
 
-        // Se o horário VIP passar ou você desligar no JSON, a página VIP expulsa o cliente pra index
         async function checarLibertacaoVip() {
-            const res = await fetch('produtos.json');
-            const dados = await res.json();
-            const hora = new Date().getHours();
-            if (dados.modo_vip === false || (hora >= 22)) {
-                window.location.href = 'index.html';
-            }
+            try {
+                const res = await fetch('produtos.json');
+                const dados = await res.json();
+                const hora = new Date().getHours();
+                
+                // Mantenha 22 apenas para o seu teste atual
+                if (dados.modo_vip === false || (hora >= 11)) {
+                    window.location.href = 'index.html';
+                }
+            } catch(e) { console.log("Erro na checagem"); }
         }
         setInterval(checarLibertacaoVip, 5000);
     </script>

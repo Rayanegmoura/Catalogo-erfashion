@@ -49,7 +49,7 @@ async function carregarProdutos() {
         const hora = agora.getHours();
         
         // Ativo se: modo_vip for true NO JSON E hora for entre 00:00 e 10:59
-        const horarioVip = (hora < 23);
+        const horarioVip = (hora >= 21 && hora < 11);
         const temSenha = localStorage.getItem('acessoVip') === 'true';
 
         // Se o modo VIP estiver ligado e estiver no horário, mas o cliente não tem a senha salva:
