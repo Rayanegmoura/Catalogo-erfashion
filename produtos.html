@@ -33,6 +33,35 @@
     <script src="js/acessibilidade.js" defer></script>
     <!--js-->
 
+    <script>
+        async function controlarAcesso() {
+            try {
+                const resposta = await fetch('produtos.json');
+                const dados = await resposta.json();
+
+                const agora = new Date();
+                const horaAtual = agora.getHours();
+
+                // 1. Manutenção
+                if (dados.site_em_manutencao === true) {
+                    window.location.href = 'manutencao.html';
+                    return;
+                }
+
+                // 2. VIP (00h às 11h)
+                if (dados.modo_vip === true && (horaAtual >= 0 && horaAtual < 24)) {
+                    const jaLogouVip = sessionStorage.getItem('acesso_vip_concedido');
+                    if (!jaLogouVip) {
+                        window.location.href = 'vip.html';
+                    }
+                }
+            } catch (erro) {
+                console.error("Erro na validação:", erro);
+            }
+        }
+        controlarAcesso();
+    </script>
+
 </head>
 
 <body>
