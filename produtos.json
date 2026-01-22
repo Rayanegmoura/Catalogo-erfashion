@@ -1,7 +1,9 @@
 {
   "site_em_manutencao": false,
   "modo_vip": false,
-  "senha_vip": "VERAO20",
+  "senha_vip": "123",
+  "hora_inicio_vip": 15,
+  "hora_fim_vip": 20,
   "produtos": [
     {
       "nome": "Conjunto Estampado 1",

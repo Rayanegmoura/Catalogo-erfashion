@@ -34,33 +34,36 @@
     <!--js-->
 
     <script>
-        async function controlarAcesso() {
-            try {
-                const resposta = await fetch('produtos.json');
-                const dados = await resposta.json();
+    async function controlarAcesso() {
+        try {
+            const resposta = await fetch('produtos.json');
+            const dados = await resposta.json();
+            
+            const agora = new Date();
+            const horaAtual = agora.getHours();
 
-                const agora = new Date();
-                const horaAtual = agora.getHours();
-
-                // 1. Manutenção
-                if (dados.site_em_manutencao === true) {
-                    window.location.href = 'manutencao.html';
-                    return;
-                }
-
-                // 2. VIP (00h às 11h)
-                if (dados.modo_vip === true && (horaAtual >= 0 && horaAtual < 24)) {
-                    const jaLogouVip = sessionStorage.getItem('acesso_vip_concedido');
-                    if (!jaLogouVip) {
-                        window.location.href = 'vip.html';
-                    }
-                }
-            } catch (erro) {
-                console.error("Erro na validação:", erro);
+            // 1. Manutenção
+            if (dados.site_em_manutencao) {
+                window.location.href = 'manutencao.html';
+                return;
             }
+
+            // 2. VIP Dinâmico (Lê do JSON)
+            const inicio = dados.hora_inicio_vip; // Ex: 0
+            const fim = dados.hora_fim_vip;       // Ex: 11
+
+            if (dados.modo_vip && (horaAtual >= inicio && horaAtual < fim)) {
+                const jaLogouVip = sessionStorage.getItem('acesso_vip_concedido');
+                if (!jaLogouVip) {
+                    window.location.href = 'vip.html';
+                }
+            }
+        } catch (erro) {
+            console.error("Erro na validação:", erro);
         }
-        controlarAcesso();
-    </script>
+    }
+    controlarAcesso();
+</script>
 
 </head>
 
