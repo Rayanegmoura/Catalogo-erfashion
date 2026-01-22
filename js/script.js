@@ -1,16 +1,4 @@
-// 0. PÁGINA EM MANUTENÇÃO
-
-// ==========================================
-// INTERRUPTOR GERAL (MUDE AQUI)
-// ==========================================
-// --const modoManutencao = true; // true = SITE BLOQUEADO | false = SITE LIBERADO
-
-//if (modoManutencao === true) {
- //   window.location.href = 'manutencao.html';
-//}
-
-
-// 1. MENU HAMBURGUER
+// 1. MENU HAMBURGUER MOBILE
 let btnMenu = document.getElementById('btn-hamburguer');
 let menu = document.querySelector('.menu-mobile');
 
@@ -24,100 +12,124 @@ menu.querySelectorAll('a').forEach(link => {
     });
 });
 
+// ==========================================
+// 2. SISTEMA DE PRODUTOS E FILTROS EXCLUSIVE
+// ==========================================
 
-// 2. CARREGAR PRODUTOS DO JSON EXTERNO (VERSÃO BLINDADA)
+let produtosOriginais = []; 
 
 async function carregarProdutos() {
     const container = document.getElementById('container-produtos');
     if (!container) return;
 
-    // Detecta se estamos na página inicial ou na página geral
-    const ehPaginaHome = container.getAttribute('data-page') === 'home';
-
     try {
         const resposta = await fetch('produtos.json');
         const dados = await resposta.json();
 
-        // --- 1. LÓGICA DE MANUTENÇÃO (BLOQUEIO TOTAL) ---
         if (dados.site_em_manutencao === true) {
             window.location.href = 'manutencao.html';
             return;
         }
 
-        // --- 2. LÓGICA DE CLIENTE VIP (BLOQUEIO POR HORÁRIO) ---
         const agora = new Date();
         const hora = agora.getHours();
-        
-        // Ativo se: modo_vip for true NO JSON E hora for entre 00:00 e 10:59
-        const horarioVip = (hora >= 21 && hora < 11);
+        const horarioVip = (hora >= 21 || hora < 11);
         const temSenha = localStorage.getItem('acessoVip') === 'true';
 
-        // Se o modo VIP estiver ligado e estiver no horário, mas o cliente não tem a senha salva:
         if (dados.modo_vip === true && horarioVip && !temSenha) {
             window.location.href = 'vip.html';
             return;
         }
 
-        // --- 3. PEGAR LISTA DE PRODUTOS ---
-        let produtos = dados.produtos;
-
-        // --- 4. LÓGICA DE FILTRAGEM PARA A HOME ---
-        if (ehPaginaHome) {
-            produtos = produtos
-                .filter(produto => 
-                    produto.tags && produto.tags.includes("Coleção Nova")
-                )
-                .slice(0, 12); // No máximo 12 itens
-        }
-
-        // --- 5. RENDERIZAÇÃO NO HTML ---
-        container.innerHTML = ""; 
-
-        produtos.forEach(produto => {
-            const tagTexto = produto.tags && produto.tags.length > 0 ? produto.tags[0] : "";
-            const tagClasse = tagTexto.toLowerCase().replace(/\s+/g, '-'); 
-            const classesProduto = `tela-produto ${tagTexto ? 'tag ' + tagClasse : ''}`;
-
-            const dotsHTML = produto.imagens.map((_, i) => 
-                `<span class="dot ${i === 0 ? 'active' : ''}"></span>`
-            ).join('');
-
-            const imgsHTML = produto.imagens.map((img, i) => 
-                `<img src="${img}" alt="${produto.nome}" class="${i === 0 ? 'active' : ''}">`
-            ).join('');
-
-            container.innerHTML += `
-                <div class="${classesProduto}" data-label="${tagTexto}">
-                    <div class="slider-produto">
-                        ${imgsHTML}
-                    </div>
-                    <div class="slider-dots">
-                        ${dotsHTML}
-                    </div>
-                    <h3>${produto.nome}</h3>
-                    <p>R$ ${produto.preco.toFixed(2).replace('.', ',')}</p>
-                    <button class="comprar-agora"> <i class="bi bi-whatsapp"></i> Comprar Agora</button>
-                </div>
-            `;
-        });
-
-        // Reinicializa as funções de interação
-        inicializarSliders();
-        inicializarWhatsApp();
+        produtosOriginais = dados.produtos;
+        aplicarFiltros(); 
 
     } catch (erro) {
-        console.error("Erro ao carregar JSON ou processar lógica:", erro);
+        console.error("Erro ao carregar JSON:", erro);
     }
 }
 
+function aplicarFiltros() {
+    const container = document.getElementById('container-produtos');
+    const filtroTag = document.getElementById('filtro-tag')?.value || "todos";
+    const filtroPreco = document.getElementById('filtro-preco')?.value || "padrao";
+    const ehPaginaHome = container.getAttribute('data-page') === 'home';
+
+    let resultado = [...produtosOriginais];
+
+    // 1. FILTRAR POR TAG
+    if (filtroTag !== "todos") {
+        resultado = resultado.filter(p => p.tags && p.tags.includes(filtroTag));
+    }
+
+    // 2. ORDENAÇÃO INTELIGENTE
+    const PESOS = { "Coleção Nova": 1, "Destaque": 2, "Promoção": 3 };
+
+    resultado.sort((a, b) => {
+        // Se o usuário selecionou uma ordem de preço, o preço MANDA em tudo (Global)
+        if (filtroPreco === "menor") return a.preco - b.preco;
+        if (filtroPreco === "maior") return b.preco - a.preco;
+
+        // Se estiver no "padrao", mantém a hierarquia Coleção > Destaque > Promo
+        const pesoA = PESOS[a.tags?.[0]] || 99;
+        const pesoB = PESOS[b.tags?.[0]] || 99;
+        return pesoA - pesoB;
+    });
+
+    // 3. LIMITAR PARA A HOME (Apenas se não houver filtro ativo para não bugar a navegação)
+    if (ehPaginaHome && filtroTag === "todos" && filtroPreco === "padrao") {
+        resultado = resultado
+            .filter(p => p.tags && p.tags.includes("Coleção Nova"))
+            .slice(0, 12);
+    }
+
+    renderizarNoHTML(resultado);
+}
+
+function renderizarNoHTML(produtos) {
+    const container = document.getElementById('container-produtos');
+    container.innerHTML = ""; 
+
+    produtos.forEach(produto => {
+        const tagTexto = produto.tags && produto.tags.length > 0 ? produto.tags[0] : "";
+        const tagClasse = tagTexto.toLowerCase().replace(/\s+/g, '-'); 
+        const classesProduto = `tela-produto ${tagTexto ? 'tag ' + tagClasse : ''}`;
+
+        const dotsHTML = produto.imagens.map((_, i) => 
+            `<span class="dot ${i === 0 ? 'active' : ''}"></span>`
+        ).join('');
+
+        const imgsHTML = produto.imagens.map((img, i) => 
+            `<img src="${img}" alt="${produto.nome}" class="${i === 0 ? 'active' : ''}">`
+        ).join('');
+
+        container.innerHTML += `
+            <div class="${classesProduto}" data-label="${tagTexto}">
+                <div class="slider-produto">
+                    ${imgsHTML}
+                </div>
+                <div class="slider-dots">
+                    ${dotsHTML}
+                </div>
+                <h3>${produto.nome}</h3>
+                <p>R$ ${produto.preco.toFixed(2).replace('.', ',')}</p>
+                <button class="comprar-agora"> <i class="bi bi-whatsapp"></i> Comprar Agora</button>
+            </div>
+        `;
+    });
+
+    inicializarSliders();
+    inicializarWhatsApp();
+}
+
+// LIGA OS FILTROS AOS EVENTOS
+document.getElementById('filtro-tag')?.addEventListener('change', aplicarFiltros);
+document.getElementById('filtro-preco')?.addEventListener('change', aplicarFiltros);
+
 // 3. SLIDERS (PRODUTOS)
-
 function inicializarSliders() {
-    // Agora seleciona APENAS os cards de produtos
     const containers = document.querySelectorAll('.tela-produto');
-
     containers.forEach(container => {
-        // Busca imagens APENAS do slider de produtos
         const imgs = container.querySelectorAll('.slider-produto img');
         const dots = container.querySelectorAll('.slider-dots .dot');
         const clickArea = container.querySelector('.slider-produto');
@@ -136,21 +148,12 @@ function inicializarSliders() {
             index = (index + 1) % imgs.length;
             mostrar(index);
         };
-
-        dots.forEach((dot, i) => {
-            dot.onclick = (e) => {
-                e.stopPropagation();
-                index = i;
-                mostrar(index);
-            };
-        });
     });
 }
 
 // 4. WHATSAPP
 function inicializarWhatsApp() {
     const numeroWhats = "5521987209252";
-    
     document.querySelectorAll('.comprar-agora').forEach(botao => {
         botao.onclick = function() {
             const card = this.closest('.tela-produto');
@@ -166,24 +169,13 @@ function inicializarWhatsApp() {
 
 // INICIAR TUDO
 document.addEventListener('DOMContentLoaded', () => {
-    carregarProdutos(); // Carrega o JSON e inicia sliders dos produtos
-    // Se a Loja Física não depende do JSON, garantimos que o slider dela inicie aqui também
-    inicializarSliders(); 
+    carregarProdutos();
 });
 
 // 5. MOSAICO DE FOTOS - LOJA FÍSICA
-
 function trocarFoto(elemento) {
-    // 1. Pega o caminho da imagem clicada
-    const novaSrc = elemento.src;
-    
-    // 2. Altera a imagem principal
-    document.getElementById('foto-foco').src = novaSrc;
-    
-    // 3. Remove a classe 'active' de todas as miniaturas
+    document.getElementById('foto-foco').src = elemento.src;
     const minis = document.querySelectorAll('.miniatura');
     minis.forEach(m => m.classList.remove('active'));
-    
-    // 4. Adiciona 'active' na que foi clicada
     elemento.classList.add('active');
 }

@@ -117,9 +117,29 @@
         <div id="content">
             <section class="box-colecao-da-semana">
                 <div class="interface">
-                    <h2>Coleção da Semana</h2>
-                    <p class="subtitle-topo">A coleção que está dando o que falar.</p>
-                        <div class="produtos-destaque" id="container-produtos" data-page="todos"></div>
+                    <h2>Catálogo de Produtos</h2>
+                    <p class="subtitle-topo">Toda semana uma coleção nova para voc.</p>
+                    <div class="shop-controls">
+                        <div class="filter-wrapper">
+                            <i class="bi bi-filter-left"></i>
+                            <select id="filtro-tag">
+                                <option value="todos">Todas as Coleções</option>
+                                <option value="Coleção Nova">Novidades</option>
+                                <option value="Destaque">Destaques</option>
+                                <option value="Promoção">Promoções</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-wrapper">
+                            <i class="bi bi-sort-down"></i>
+                            <select id="filtro-preco">
+                                <option value="padrao">Ordenar por</option>
+                                <option value="menor">Menor Preço</option>
+                                <option value="maior">Maior Preço</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="produtos-destaque" id="container-produtos" data-page="todos"></div>
                 </div><!--interface-->
             </section><!--Box Coleção da Semana-->
 

@@ -56,6 +56,41 @@
     transform: scale(1.1); /* Um leve zoom para destacar qual está selecionada */
 }
 
+/* TEXTO HISTÓRIA */
+
+.sobre-loja {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 20px;
+    text-align: center;
+    font-family: 'Zain', sans-serif;
+}
+
+.sobre-loja h2 {
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    color: #d6b98c;
+}
+
+.sobre-loja p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    color: #333;
+}
+
+.sobre-loja .loja-fisica {
+    margin-top: 30px;
+    font-weight: 600;
+}
+
+.sobre-loja .slogan {
+    margin-top: 35px;
+    font-size: 1.1rem;
+    color: #d6b98c;
+}
+
+
 /* BOTÃO WHATSAPP */
 .btn-whatsapp {
     display: inline-flex;
