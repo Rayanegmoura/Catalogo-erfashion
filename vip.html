@@ -2,51 +2,46 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acesso Antecipado VIP</title>
+    <title>Acesso VIP | Exclusive</title>
     <style>
-        body {
-            background: #1a1a1a; color: #d6b98c;
-            height: 100vh; display: flex; justify-content: center; align-items: center;
-            font-family: 'serif'; text-align: center; margin: 0;
-        }
-        .vip-box {
-            padding: 40px; border: 1px solid #d6b98c; border-radius: 20px;
-            background: #252525; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        input {
-            padding: 12px; border-radius: 5px; border: 1px solid #d6b98c;
-            background: transparent; color: white; text-align: center;
-            font-size: 1.1rem; width: 80%; margin-bottom: 20px;
-        }
-        button {
-            padding: 12px 30px; background: #d6b98c; color: #1a1a1a;
-            border: none; border-radius: 30px; font-weight: bold; cursor: pointer;
-        }
-        .erro { color: #ff4444; font-size: 0.9rem; margin-top: 10px; display: none; }
+        body { background: #1a1a1a; color: #d6b98c; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
+        .box { padding: 40px; border: 1px solid #d6b98c; border-radius: 15px; background: #222; }
+        input { padding: 10px; border-radius: 5px; border: 1px solid #d6b98c; background: transparent; color: #fff; margin: 10px 0; text-align: center; }
+        button { padding: 10px 20px; background: #d6b98c; color: #1a1a1a; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="vip-box">
-        <h1>Acesso VIP</h1>
-        <p>A nova coleção já está disponível para clientes exclusivas.</p>
-        <input type="password" id="senhaVip" placeholder="Digite sua chave de acesso">
+    <div class="box">
+        <h1>Acesso Antecipado VIP</h1>
+        <p>Digite sua chave de acesso para ver a nova coleção.</p>
+        <input type="password" id="senha" placeholder="Sua senha VIP">
         <br>
-        <button onclick="verificarSenha()">ENTRAR NA LOJA</button>
-        <p id="mensagemErro" class="erro">Chave incorreta. Verifique o convite no seu WhatsApp.</p>
+        <button onclick="entrar()">ENTRAR</button>
+        <p id="erro" style="color: red; display: none;">Senha incorreta!</p>
     </div>
 
     <script>
-       function verificarSenha() {
-    const senhaDigitada = document.getElementById('senhaVip').value;
-    
-    if (senhaDigitada === "123456") { // Mesma senha do index.js
-        localStorage.setItem('acessoVip', 'true');
-        window.location.href = 'index.html';
-    } else {
-        document.getElementById('mensagemErro').style.display = 'block';
-    }
-}
+        async function entrar() {
+            const senhaDigitada = document.getElementById('senha').value;
+            // Dica: Você pode até colocar a senha no JSON se quiser, aqui vamos fixar:
+            if (senhaDigitada === "VIP2026") { 
+                localStorage.setItem('acessoVip', 'true');
+                window.location.href = 'index.html';
+            } else {
+                document.getElementById('erro').style.display = 'block';
+            }
+        }
+
+        // Se o horário VIP passar ou você desligar no JSON, a página VIP expulsa o cliente pra index
+        async function checarLibertacaoVip() {
+            const res = await fetch('produtos.json');
+            const dados = await res.json();
+            const hora = new Date().getHours();
+            if (dados.modo_vip === false || (hora >= 22)) {
+                window.location.href = 'index.html';
+            }
+        }
+        setInterval(checarLibertacaoVip, 5000);
     </script>
 </body>
 </html>

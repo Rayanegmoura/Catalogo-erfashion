@@ -24,7 +24,6 @@ menu.querySelectorAll('a').forEach(link => {
     });
 });
 
-// 2. CARREGAR PRODUTOS DO JSON EXTERNO
 
 // 2. CARREGAR PRODUTOS DO JSON EXTERNO (VERSÃO BLINDADA)
 
@@ -32,32 +31,46 @@ async function carregarProdutos() {
     const container = document.getElementById('container-produtos');
     if (!container) return;
 
+    // Detecta se estamos na página inicial ou na página geral
     const ehPaginaHome = container.getAttribute('data-page') === 'home';
 
     try {
         const resposta = await fetch('produtos.json');
-        const dados = await resposta.json(); // Aqui pegamos o objeto completo { ... }
+        const dados = await resposta.json();
 
-        // --- LÓGICA DE MANUTENÇÃO ---
+        // --- 1. LÓGICA DE MANUTENÇÃO (BLOQUEIO TOTAL) ---
         if (dados.site_em_manutencao === true) {
             window.location.href = 'manutencao.html';
-            return; // Mata a função aqui, nada mais abaixo é executado
+            return;
         }
-        // ----------------------------
 
-        // Aqui está o "pulo do gato": pegamos apenas a lista de produtos do JSON
+        // --- 2. LÓGICA DE CLIENTE VIP (BLOQUEIO POR HORÁRIO) ---
+        const agora = new Date();
+        const hora = agora.getHours();
+        
+        // Ativo se: modo_vip for true NO JSON E hora for entre 00:00 e 10:59
+        const horarioVip = (hora < 23);
+        const temSenha = localStorage.getItem('acessoVip') === 'true';
+
+        // Se o modo VIP estiver ligado e estiver no horário, mas o cliente não tem a senha salva:
+        if (dados.modo_vip === true && horarioVip && !temSenha) {
+            window.location.href = 'vip.html';
+            return;
+        }
+
+        // --- 3. PEGAR LISTA DE PRODUTOS ---
         let produtos = dados.produtos;
 
-        // --- LÓGICA DE FILTRAGEM PARA A HOME (Continua igual, mas agora usando a lista certa) ---
+        // --- 4. LÓGICA DE FILTRAGEM PARA A HOME ---
         if (ehPaginaHome) {
             produtos = produtos
                 .filter(produto => 
                     produto.tags && produto.tags.includes("Coleção Nova")
                 )
-                .slice(0, 12); 
+                .slice(0, 12); // No máximo 12 itens
         }
-        // ---------------------------------------
 
+        // --- 5. RENDERIZAÇÃO NO HTML ---
         container.innerHTML = ""; 
 
         produtos.forEach(produto => {
@@ -88,11 +101,12 @@ async function carregarProdutos() {
             `;
         });
 
+        // Reinicializa as funções de interação
         inicializarSliders();
         inicializarWhatsApp();
 
     } catch (erro) {
-        console.error("Erro ao carregar JSON:", erro);
+        console.error("Erro ao carregar JSON ou processar lógica:", erro);
     }
 }
 
