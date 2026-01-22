@@ -1,5 +1,5 @@
 {
-  "site_em_manutencao": false,
+  "site_em_manutencao": true,
   "modo_vip": false,
   "senha_vip": "123",
   "hora_inicio_vip": 15,

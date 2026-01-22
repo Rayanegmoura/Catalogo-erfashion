@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>ER Fashion | Moda Feminina</title>
+    <title>Conheça nossa Loja Física |  | ER Fashion</title>
 
     <!--fonts google-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,35 +34,7 @@
     <!--js-->
 
     <script>
-    async function controlarAcesso() {
-        try {
-            const resposta = await fetch('produtos.json');
-            const dados = await resposta.json();
-            
-            const agora = new Date();
-            const horaAtual = agora.getHours();
-
-            // 1. Manutenção
-            if (dados.site_em_manutencao) {
-                window.location.href = 'manutencao.html';
-                return;
-            }
-
-            // 2. VIP Dinâmico (Lê do JSON)
-            const inicio = dados.hora_inicio_vip; // Ex: 0
-            const fim = dados.hora_fim_vip;       // Ex: 11
-
-            if (dados.modo_vip && (horaAtual >= inicio && horaAtual < fim)) {
-                const jaLogouVip = sessionStorage.getItem('acesso_vip_concedido');
-                if (!jaLogouVip) {
-                    window.location.href = 'vip.html';
-                }
-            }
-        } catch (erro) {
-            console.error("Erro na validação:", erro);
-        }
-    }
-    controlarAcesso();
+ 
 </script>
 
 </head>

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estamos nos preparando! | Nome da Loja</title>
+    <title>Estamos nos preparando! | ER Fashion</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         body {
@@ -18,17 +19,29 @@
             text-align: center;
             color: #202020;
         }
+
         .container {
             padding: 20px;
         }
+
         .logo-temp {
             font-size: 3rem;
             color: #E89AA3;
             margin-bottom: 20px;
         }
-        h1 { font-size: 2rem; margin-bottom: 10px; }
-        p { font-size: 1.1rem; color: #666; max-width: 400px; margin: 0 auto 30px auto; }
-        
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 400px;
+            margin: 0 auto 30px auto;
+        }
+
         .loader {
             border: 4px solid #f3f3f3;
             border-top: 4px solid #fa4b5f;
@@ -38,7 +51,16 @@
             animation: spin 1s linear infinite;
             margin: 0 auto 20px auto;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
         .btn-whats {
             display: inline-block;
@@ -52,40 +74,43 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="logo-temp"><i class="bi bi-shop"></i></div>
         <div class="loader"></div>
         <h1>Estamos cadastrando novidades!</h1>
-        <p>Nossa nova coleção está ficando incrível. Voltamos em alguns instantes com muitas peças ousadas e estilosas.</p>
-        
+        <p>Nossa nova coleção está ficando incrível. Voltamos em alguns instantes com muitas peças ousadas e estilosas.
+        </p>
+
         <a href="https://wa.me/5521987209252" class="btn-whats" target="_blank">
             <i class="bi bi-whatsapp"></i> Fale com a gente no WhatsApp
         </a>
     </div>
-<script>
-    async function verificarStatusSite() {
-        try {
-            // 1. Busca o arquivo JSON
-            const resposta = await fetch('produtos.json');
-            const dados = await resposta.json();
+    <script>
+        async function verificarStatusSite() {
+            try {
+                // 1. Busca o arquivo JSON
+                const resposta = await fetch('produtos.json');
+                const dados = await resposta.json();
 
-            // 2. Se o modo manutenção for FALSE, volta para a index
-            if (dados.site_em_manutencao === false) {
-                console.log("Loja liberada! Redirecionando...");
-                window.location.href = 'index.html';
+                // 2. Se o modo manutenção for FALSE, volta para a index
+                if (dados.site_em_manutencao === false) {
+                    console.log("Loja liberada! Redirecionando...");
+                    window.location.href = 'index.html';
+                }
+            } catch (erro) {
+                console.error("Erro ao verificar status:", erro);
             }
-        } catch (erro) {
-            console.error("Erro ao verificar status:", erro);
         }
-    }
 
-    // Executa assim que a página carrega
-    verificarStatusSite();
+        // Executa assim que a página carrega
+        verificarStatusSite();
 
-    // Verifica automaticamente a cada 10 segundos 
-    // Assim o cliente não precisa nem dar F5 para entrar quando você liberar
-    setInterval(verificarStatusSite, 10000);
-</script>
+        // Verifica automaticamente a cada 10 segundos 
+        // Assim o cliente não precisa nem dar F5 para entrar quando você liberar
+        setInterval(verificarStatusSite, 10000);
+    </script>
 </body>
+
 </html>

@@ -2,41 +2,37 @@
 // 0. CONTROLE DE ACESSO GLOBAL (MANUTENÇÃO E VIP)
 // ==========================================
 
-async function verificarBloqueios() {
+async function controlarAcesso() {
     try {
         const resposta = await fetch('produtos.json');
         const dados = await resposta.json();
-        
+
+        // Pega a hora exata de Brasília
         const agora = new Date();
-        const hora = agora.getHours();
-        const horarioVipAtivo = (horaAtual >= 0 && horaAtual < 24);
-        const jaPossuiAcesso = sessionStorage.getItem('acesso_vip_concedido') === 'true';
+        const horaBrasilia = JSON.parse(JSON.stringify(agora.toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })));
+        const horaAtual = new Date(horaBrasilia).getHours();
 
-        // Pega o nome da página atual para evitar loop infinito
-        const paginaAtual = window.location.pathname.split("/").pop();
-
-        // 1. Bloqueio de Manutenção (Afeta todas as páginas exceto manutencao.html)
-        if (dados.site_em_manutencao && paginaAtual !== 'manutencao.html') {
+        // 1. Manutenção
+        if (dados.site_em_manutencao) {
             window.location.href = 'manutencao.html';
             return;
         }
 
-        // 2. Bloqueio VIP (Afeta todas as páginas exceto vip.html e manutencao.html)
-        if (dados.modo_vip && horarioVipAtivo && !jaPossuiAcesso) {
-            if (paginaAtual !== 'vip.html' && paginaAtual !== 'manutencao.html') {
+        // 2. VIP Dinâmico (Lê do JSON)
+        const inicio = dados.hora_inicio_vip; // Ex: 0
+        const fim = dados.hora_fim_vip;       // Ex: 11
+
+        if (dados.modo_vip && (horaAtual >= inicio && horaAtual < fim)) {
+            const jaLogouVip = sessionStorage.getItem('acesso_vip_concedido');
+            if (!jaLogouVip) {
                 window.location.href = 'vip.html';
-                return;
             }
         }
     } catch (erro) {
-        console.error("Erro na verificação de segurança:", erro);
+        console.error("Erro na validação:", erro);
     }
 }
-
-// Executa a verificação IMEDIATAMENTE antes de qualquer outra coisa
-verificarBloqueios();
-
-// ... restante do seu código (Menu hamburguer, carregar produtos, etc) ...
+controlarAcesso();
 
 
 // 1. MENU HAMBURGUER MOBILE
@@ -57,7 +53,7 @@ menu.querySelectorAll('a').forEach(link => {
 // 2. SISTEMA DE PRODUTOS E FILTROS EXCLUSIVE
 // ==========================================
 
-let produtosOriginais = []; 
+let produtosOriginais = [];
 
 async function carregarProdutos() {
     const container = document.getElementById('container-produtos');
@@ -70,7 +66,7 @@ async function carregarProdutos() {
         // Aqui ele apenas carrega os produtos. 
         // A decisão de "quem pode ver a página" fica no <head> do HTML ou na vip.html
         produtosOriginais = dados.produtos;
-        aplicarFiltros(); 
+        aplicarFiltros();
 
     } catch (erro) {
         console.error("Erro ao carregar JSON:", erro);
@@ -110,18 +106,18 @@ function aplicarFiltros() {
 
 function renderizarNoHTML(produtos) {
     const container = document.getElementById('container-produtos');
-    container.innerHTML = ""; 
+    container.innerHTML = "";
 
     produtos.forEach(produto => {
         const tagTexto = produto.tags?.[0] || "";
-        const tagClasse = tagTexto.toLowerCase().replace(/\s+/g, '-'); 
+        const tagClasse = tagTexto.toLowerCase().replace(/\s+/g, '-');
         const classesProduto = `tela-produto ${tagTexto ? 'tag ' + tagClasse : ''}`;
 
-        const dotsHTML = produto.imagens.map((_, i) => 
+        const dotsHTML = produto.imagens.map((_, i) =>
             `<span class="dot ${i === 0 ? 'active' : ''}"></span>`
         ).join('');
 
-        const imgsHTML = produto.imagens.map((img, i) => 
+        const imgsHTML = produto.imagens.map((img, i) =>
             `<img src="${img}" alt="${produto.nome}" class="${i === 0 ? 'active' : ''}">`
         ).join('');
 
@@ -168,7 +164,7 @@ function inicializarSliders() {
 function inicializarWhatsApp() {
     const numeroWhats = "5521987209252";
     document.querySelectorAll('.comprar-agora').forEach(botao => {
-        botao.onclick = function() {
+        botao.onclick = function () {
             const card = this.closest('.tela-produto');
             const nome = card.querySelector('h3').innerText;
             const valor = card.querySelector('p').innerText;
