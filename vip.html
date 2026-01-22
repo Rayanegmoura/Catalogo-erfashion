@@ -6,80 +6,206 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acesso VIP | Exclusive ER FASHION</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Zain:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <script>
-    async function monitorarStatusVip() {
-        try {
-            const resposta = await fetch('produtos.json');
-            const dados = await resposta.json();
-            
-            // 1. Se entrar em manutenção, expulsa para manutenção
-            if (dados.site_em_manutencao === true) {
-                window.location.href = 'manutencao.html';
-                return;
-            }
+        async function monitorarStatusVip() {
+            try {
+                const resposta = await fetch('produtos.json');
+                const dados = await resposta.json();
 
-            // 2. SÓ SAIR DA PÁGINA VIP SE O MODO FOR DESLIGADO MANUALMENTE
-            // Tiramos a checagem de hora daqui para evitar o conflito com a index
-            if (dados.modo_vip === false) {
-                window.location.href = 'index.html';
+                const agora = new Date();
+                const horaAtual = agora.getHours();
+                const minAtual = agora.getMinutes();
+                const segAtual = agora.getSeconds();
+
+                // 1. Bloqueio de Manutenção
+                if (dados.site_em_manutencao === true) {
+                    window.location.href = 'manutencao.html';
+                    return;
+                }
+
+                // 2. Se o Modo VIP for desligado manual no JSON, vai pra loja
+                if (dados.modo_vip === false) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                // 3. Lógica do Cronômetro vs Campo de Senha
+                const horaAlvo = dados.hora_inicio_vip; // Ex: 21
+
+                if (horaAtual < horaAlvo) {
+                    // AINDA NÃO É HORA: Calcula tempo restante
+                    const h = (horaAlvo - 1) - horaAtual;
+                    const m = 59 - minAtual;
+                    const s = 59 - segAtual;
+
+                    document.getElementById('countdown').innerText =
+                        `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+
+                    document.getElementById('timer-container').style.display = 'block';
+                    document.getElementById('senha-container').style.display = 'none';
+                } else {
+                    // CHEGOU A HORA: Libera o campo de senha
+                    document.getElementById('timer-container').style.display = 'none';
+                    document.getElementById('senha-container').style.display = 'block';
+                    document.getElementById('vip-titulo').innerText = "Área VIP";
+                    document.getElementById('status-tag').innerText = "ACESSO LIBERADO";
+                    document.getElementById('main-icon').className = "bi bi-shield-lock icon-lock";
+                }
+
+            } catch (e) {
+                console.error("Erro ao monitorar status");
             }
-            
-        } catch (e) {
-            console.error("Erro ao monitorar status");
         }
-    }
 
-    monitorarStatusVip();
-    setInterval(monitorarStatusVip, 5000);
-</script>
+        // Roda a cada 1 segundo para o relógio ser fluido
+        monitorarStatusVip();
+        setInterval(monitorarStatusVip, 1000);
+    </script>
 
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            background: #121212;
-            color: #d6b98c;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f7f2eb, #f3ede6);
+            font-family: 'Zain', 'Segoe UI', sans-serif;
             display: flex;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            justify-content: center;
             padding: 20px;
-            text-align: center;
+            color: #202020;
         }
 
         .box {
             width: 100%;
-            max-width: 400px;
-            padding: 40px 20px;
-            border: 1px solid #d6b98c;
-            border-radius: 20px;
-            background: #1a1a1a;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
+            max-width: 420px;
+            background: #ffffff;
+            padding: 50px 40px;
+            border-radius: 28px;
+            border: 1px solid #e6d8c3;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, .08);
+            text-align: center;
         }
 
-        /* Animação de erro */
+        .icon-lock {
+            font-size: 2.6rem;
+            color: #d6b98c;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .tag-editorial {
+            display: inline-block;
+            margin-bottom: 18px;
+            padding: 6px 14px;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            border-radius: 12px;
+            background: #f2d9c3;
+            color: #202020;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px solid #e6d8c3;
+            background: transparent;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 16px;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #f2d9c3, #d6b98c);
+            color: #202020;
+            transition: .35s;
+        }
+
+        button:hover {
+            opacity: 0.85;
+            transform: scale(1.03);
+        }
+
+        #erro {
+            margin-top: 22px;
+            display: none;
+        }
+
+        .msg-erro-titulo {
+            font-size: 0.8rem;
+            color: #b80000;
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .convite-vip {
+            font-size: 0.75rem;
+            color: #666;
+            border-top: 1px dashed #e6d8c3;
+            padding-top: 14px;
+        }
+
+        .link-whats {
+            display: inline-block;
+            margin-top: 6px;
+            font-weight: 600;
+            color: #c7a15a;
+            text-decoration: none;
+        }
+
+        .link-whats:hover {
+            text-decoration: underline;
+        }
+
         @keyframes shake {
             0% {
                 transform: translateX(0);
             }
 
             25% {
-                transform: translateX(-8px);
+                transform: translateX(-6px);
             }
 
             50% {
-                transform: translateX(8px);
+                transform: translateX(6px);
             }
 
             75% {
-                transform: translateX(-8px);
+                transform: translateX(-6px);
             }
 
             100% {
@@ -87,102 +213,56 @@
             }
         }
 
-        .icon-lock {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            display: block;
-        }
+        @media (max-width: 480px) {
+            .box {
+                padding: 36px 26px;
+                border-radius: 22px;
+            }
 
-        h1 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+            h1 {
+                font-size: 1.7rem;
+            }
 
-        p {
-            font-size: 1rem;
-            opacity: 0.8;
-            margin-bottom: 25px;
-        }
-
-        input {
-            width: 100%;
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid #d6b98c;
-            background: transparent;
-            color: #fff;
-            margin-bottom: 15px;
-            text-align: center;
-            font-size: 1.1rem;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            background: #d6b98c;
-            color: #121212;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: 0.3s;
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        /* Estilo do bloco de erro e convite */
-        #erro {
-            margin-top: 20px;
-            display: none;
-        }
-
-        .msg-erro-titulo {
-            color: #ff6b6b;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .convite-vip {
-            font-size: 0.9rem;
-            color: #d6b98c;
-            text-decoration: none;
-            border-top: 1px solid #333;
-            padding-top: 15px;
-            display: block;
-        }
-
-        .link-whats {
-            color: #fff;
-            text-decoration: underline;
-            font-weight: bold;
-            display: block;
-            margin-top: 5px;
+            p {
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="box">
-        <i class="bi bi-shield-lock icon-lock"></i>
-        <h1>Acesso VIP</h1>
-        <p>Esta coleção está disponível apenas para clientes exclusivos no momento.</p>
 
-        <input type="password" id="senha" placeholder="Digite sua Chave VIP" inputmode="text">
-        <button onclick="entrar()">LIBERAR ACESSO</button>
+    <div class="box">
+        <i class="bi bi-clock-history icon-lock" id="main-icon"></i>
+        <span class="tag-editorial" id="status-tag">LANÇAMENTO EM BREVE</span>
+
+        <h1 id="vip-titulo">Contagem Regressiva</h1>
+
+        <div id="timer-container">
+            <p>A nova coleção será liberada para o grupo VIP em:</p>
+            <div id="countdown"
+                style="font-size: 2.2rem; font-weight: 700; color: #202020; margin-bottom: 25px; letter-spacing: 2px;">
+                00:00:00
+            </div>
+            <span style="font-size:0.65rem; color:#999;">
+                Acesso antecipado • Quantidades limitadas
+            </span>
+
+        </div>
+
+        <div id="senha-container" style="display: none;">
+            <p>Digite sua chave exclusiva para acessar a nova coleção.</p>
+            <input type="password" id="senha" placeholder="Digite sua chave VIP" inputmode="text">
+            <button onclick="entrar()">LIBERAR ACESSO</button>
+        </div>
 
         <div id="erro">
-            <span class="msg-erro-titulo">Senha incorreta! Tente novamente...</span>
+            <span class="msg-erro-titulo">Chave inválida</span>
             <div class="convite-vip">
-                Ainda não faz parte da nossa lista vip?
+                Quer receber a próxima coleção em primeira mão?<br>
                 <a href="https://wa.me/5521987209252?text=Oi!+Quero+fazer+parte+do+grupo+VIP" target="_blank"
                     class="link-whats">
-                    Clique aqui e solicite seu acesso ✨
+                    Solicite seu acesso VIP agora!
                 </a>
             </div>
         </div>
@@ -191,45 +271,36 @@
     <script>
         async function entrar() {
             const senhaInput = document.getElementById('senha');
-            const senhaDigitada = senhaInput.value;
             const erroDiv = document.getElementById('erro');
             const box = document.querySelector('.box');
 
             try {
-                // 1. Busca a senha correta que está lá no seu produtos.json
-                const resposta = await fetch('produtos.json');
+                const resposta = await fetch('produtos.json', { cache: "no-store" });
+                if (!resposta.ok) throw new Error("JSON não carregou");
+
                 const dados = await resposta.json();
 
-                // 2. Compara a senha (o campo no JSON deve ser "senha_vip")
-                if (senhaDigitada === dados.senha_vip) {
-                    // Cria o "ticket" no navegador para o script da index liberar a entrada
+                if (senhaInput.value === dados.senha_vip) {
                     sessionStorage.setItem('acesso_vip_concedido', 'true');
-
-                    // Redireciona para a loja
                     window.location.href = 'index.html';
                 } else {
-                    // Caso a senha esteja errada:
-                    erroDiv.style.display = 'block'; // Mostra a mensagem de erro
-                    senhaInput.value = ''; // Limpa o campo
-
-                    // Aplica o efeito de "tremer" que você já tem no CSS
+                    erroDiv.style.display = 'block';
+                    senhaInput.value = '';
                     box.style.animation = 'shake 0.4s ease';
-                    // Remove a animação após ela terminar para poder repetir se errar de novo
-                    setTimeout(() => { box.style.animation = ''; }, 400);
+                    setTimeout(() => box.style.animation = '', 400);
                 }
+
             } catch (erro) {
                 console.error("Erro ao validar acesso:", erro);
-                alert("Erro técnico ao verificar senha. Tente novamente mais tarde.");
+                alert("Erro técnico ao verificar acesso.");
             }
         }
 
-        // Atalho: Permitir que o cliente aperte "Enter" no teclado para entrar
-        document.getElementById('senha').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                entrar();
-            }
+        document.getElementById('senha').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') entrar();
         });
     </script>
+
 </body>
 
 </html>
