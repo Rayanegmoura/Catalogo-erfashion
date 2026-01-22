@@ -5,88 +5,264 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estamos nos preparando! | ER Fashion</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #F7F2EB;
-            font-family: 'Zain', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
-            color: #202020;
-        }
 
-        .container {
-            padding: 20px;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Zain:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-        .logo-temp {
-            font-size: 3rem;
-            color: #E89AA3;
-            margin-bottom: 20px;
-        }
+<style>
+:root {
+  --gold-1:#f6e6b5;
+  --gold-2:#d6b98c;
+  --gold-3:#c7a15a;
+  --bg:#f7f2eb;
+  --dark:#202020;
+}
 
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
+* { box-sizing:border-box; }
 
-        p {
-            font-size: 1.1rem;
-            color: #666;
-            max-width: 400px;
-            margin: 0 auto 30px auto;
-        }
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Zain',sans-serif;
+  background:
+    radial-gradient(circle at top, var(--gold-1), var(--bg));
+  color:var(--dark);
+}
 
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #fa4b5f;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px auto;
-        }
+/* CONTAINER PRINCIPAL */
+.wrapper{
+  width:100%;
+  max-width:1100px;
+  min-height:100vh;
+  padding:20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
+/* CARD */
+.card{
+  width:100%;
+  max-width:980px;
+  background:#fff;
+  border-radius:28px;
+  box-shadow:0 30px 70px rgba(0,0,0,.12);
+  display:flex;
+  overflow:hidden;
+}
 
-            100% {
-                transform: rotate(360deg);
-            }
-        }
+/* COLUNAS */
+.col{
+  flex:1;
+  padding:50px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align:center;
+}
 
-        .btn-whats {
-            display: inline-block;
-            padding: 12px 25px;
-            background-color: #25d366;
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-    </style>
+/* ESQUERDA */
+.col-left{
+  background:#fff;
+}
+
+.logo{
+  font-size:3rem;
+  margin-bottom:10px;
+}
+
+.tag{
+  font-size:.65rem;
+  letter-spacing:3px;
+  padding:6px 16px;
+  border-radius:20px;
+  background:#f2d9c3;
+  display:inline-block;
+  margin:0 auto 30px;
+}
+
+.loader{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:2px solid #eadfcf;
+  border-top-color:var(--gold-3);
+  animation:spin 1s linear infinite;
+  margin:0 auto 30px;
+}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+
+h1{
+  font-size:2.2rem;
+  font-weight:600;
+  margin-bottom:10px;
+}
+
+p{
+  font-size:1.05rem;
+  color:#666;
+  line-height:1.5;
+  margin-bottom:28px;
+}
+
+.btn{
+  display:inline-block;
+  padding:13px 44px;
+  border-radius:50px;
+  font-size:.9rem;
+  letter-spacing:1px;
+  text-decoration:none;
+  color:var(--dark);
+  background:linear-gradient(90deg,var(--gold-1),var(--gold-2));
+  transition:.3s;
+}
+
+.btn:hover{transform:scale(1.04);opacity:.85}
+
+/* DIREITA */
+.col-right{
+  background:
+    linear-gradient(135deg,var(--gold-1),var(--gold-2));
+}
+
+.col-right h2{
+  font-size:1.9rem;
+  font-weight:600;
+  margin-bottom:8px;
+}
+
+.col-right p{
+  font-size:1rem;
+  color:#3a3a3a;
+}
+
+.btn-vip{
+  margin-top:25px;
+  background:#202020;
+  color:#fff;
+  letter-spacing:2px;
+}
+
+.btn-vip:hover{background:#000}
+
+/* MOBILE — SEM SCROLL */
+/* MOBILE — FLUXO LIMPO, SEM POLUIÇÃO */
+@media (max-width: 768px) {
+
+  body{
+    align-items:flex-start;
+  }
+
+  .wrapper{
+    min-height:100vh;
+    padding:10px;
+  }
+
+  .card{
+    flex-direction:column;
+    min-height:100vh;
+    border-radius:22px;
+  }
+
+  .col{
+    padding:28px 22px;
+  }
+
+  /* ESQUERDA PRIORITÁRIA */
+  .col-left{
+    flex:1;
+  }
+
+  h1{
+    font-size:1.85rem;
+  }
+
+  p{
+    font-size:.95rem;
+    margin-bottom:20px;
+  }
+
+  .loader{
+    margin-bottom:24px;
+  }
+
+  /* VIP COMPACTO */
+  .col-right{
+    flex:none;
+    padding:22px;
+    border-radius:18px;
+    margin:0 14px 14px;
+  }
+
+  .col-right h2{
+    font-size:1.3rem;
+    margin-bottom:6px;
+  }
+
+  .col-right p{
+    font-size:.85rem;
+    line-height:1.4;
+    margin-bottom:16px;
+  }
+
+  .btn-vip{
+    padding:11px 26px;
+    font-size:.75rem;
+  }
+
+}
+</style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="logo-temp"><i class="bi bi-shop"></i></div>
-        <div class="loader"></div>
-        <h1>Estamos cadastrando novidades!</h1>
-        <p>Nossa nova coleção está ficando incrível. Voltamos em alguns instantes com muitas peças ousadas e estilosas.
-        </p>
 
-        <a href="https://wa.me/5521987209252" class="btn-whats" target="_blank">
-            <i class="bi bi-whatsapp"></i> Fale com a gente no WhatsApp
-        </a>
+<div class="wrapper">
+  <div class="card">
+
+    <!-- ESQUERDA -->
+    <div class="col col-left">
+      <div class="logo"><i class="bi bi-shop"></i></div>
+      <span class="tag">CATÁLOGO OFICIAL</span>
+
+      <div class="loader"></div>
+
+      <h1>Catálogo em atualização</h1>
+      <p>
+        Cada peça que entra aqui precisa ter presença.<br>
+        Não vendemos padrão. Vendemos atitude.
+      </p>
+
+      <a class="btn" href="https://wa.me/5521987209252" target="_blank"><i class="bi bi-whatsapp"></i>
+        Atendimento pelo WhatsApp
+      </a>
     </div>
+
+    <!-- DIREITA -->
+    <div class="col col-right">
+      <h2>Quer ter acesso a nova coleção?</h2>
+      <p>
+        Entre para a lista VIP e veja a nova coleção<br>
+        antes de todo mundo.
+      </p>
+
+      <a class="btn btn-vip"
+         href="https://wa.me/5521987209252?text=Quero%20entrar%20na%20lista%20VIP%20da%20ER%20Fashion"
+         target="_blank">
+        ENTRAR NA LISTA VIP
+      </a>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- SCRIPT DA PÁGINA -->
+
     <script>
         async function verificarStatusSite() {
             try {
