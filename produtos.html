@@ -175,9 +175,31 @@
         </div><!-- interface -->
     </footer>
     
-    <div id="carrinho-flutuante" onclick="enviarCarrinho()">
-    <i class="bi bi-cart-fill"></i> 0 itens - Enviar Pedido
+    <div id="carrinho-flutuante" onclick="toggleCarrinho()">
+    <i class="bi bi-cart-fill"></i>
+    <span id="carrinho-contador">0</span>
 </div>
+
+<div id="carrinho-lateral" class="carrinho-fechado">
+    <div class="carrinho-header">
+        <h3>Meu Carrinho</h3>
+        <button onclick="toggleCarrinho()"><i class="bi bi-x-lg"></i></button>
+    </div>
+    
+    <div id="itens-carrinho-lista">
+        </div>
+
+    <div class="carrinho-footer">
+        <div class="total-container">
+            <span>Total:</span>
+            <span id="carrinho-total-valor">R$ 0,00</span>
+        </div>
+        <button class="btn-enviar-whats" onclick="enviarCarrinho()">
+            <i class="bi bi-whatsapp"></i> Finalizar Pedido
+        </button>
+    </div>
+</div>
+<div id="overlay-carrinho" onclick="toggleCarrinho()"></div>
 </body>
 
 </html>

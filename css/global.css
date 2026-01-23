@@ -618,48 +618,245 @@ button.comprar-agora:hover {
 
 
 
-/* Carrinho Flutuante */
-#carrinho-flutuante {
+/* ===============================
+   CARRINHO LATERAL
+   =============================== */
+
+#carrinho-lateral {
     position: fixed;
-    bottom: 90px; /* Acima do botão do WhatsApp */
-    right: 20px;
-    background: #E89AA3;
-    color: white;
-    padding: 15px 20px;
-    border-radius: 50px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-    z-index: 1000;
-    cursor: pointer;
-    display: none; /* Inicia oculto */
-    align-items: center;
-    gap: 10px;
-    font-weight: bold;
-    transition: transform 0.3s;
+    top: 0;
+    right: -100%;
+    width: 360px;
+    height: 100vh;
+    background: #fff;
+    z-index: 2000;
+    box-shadow: -12px 0 30px rgba(168, 132, 66, 0.25);
+    transition: 0.45s ease;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Zain', 'Segoe UI', sans-serif;
 }
 
-#carrinho-flutuante:hover { transform: scale(1.05); }
+#carrinho-lateral.aberto {
+    right: 0;
+}
 
-/* Ajuste dos botões no Card (Apenas para página de produtos) */
+/* ===============================
+   HEADER
+   =============================== */
+
+.carrinho-header {
+    padding: 22px;
+    background: linear-gradient(135deg, #F6B7B7, #E89AA3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.carrinho-header h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #202020;
+}
+
+/* BOTÃO FECHAR */
+.carrinho-header button {
+    background: transparent;
+    border: none;
+    font-size: 1.8rem;
+    color: #202020;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.carrinho-header button:hover {
+    transform: scale(1.15);
+    color: #fff;
+}
+
+/* ===============================
+   LISTA DE ITENS
+   =============================== */
+
+#itens-carrinho-lista {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+/* ITEM */
+.item-carrinho {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(214, 185, 140, 0.35);
+}
+
+.item-carrinho img {
+    width: 68px;
+    height: 68px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 1px solid rgba(214, 185, 140, 0.6);
+}
+
+/* INFO */
+.item-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.item-info h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #202020;
+    margin-bottom: 2px;
+}
+
+.item-info p {
+    font-size: 18px;
+    color: #D16C7C;
+    font-weight: 700;
+}
+
+/* REMOVER */
+.btn-remover {
+    background: none;
+    border: none;
+    color: #9a9a9a;
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 4px;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.btn-remover:hover {
+    color: #ff3b3b;
+}
+
+/* ===============================
+   FOOTER
+   =============================== */
+
+.carrinho-footer {
+    padding: 24px;
+    background: #F7F2EB;
+    border-top: 1px solid rgba(214, 185, 140, 0.4);
+}
+
+/* TOTAL */
+.total-container {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: 700;
+    color: #202020;
+    margin-bottom: 18px;
+}
+
+/* BOTÃO WHATS */
+.btn-enviar-whats {
+    width: 100%;
+    background: linear-gradient(90deg, #25D366, #1ebe5d);
+    color: #fff;
+    border: none;
+    padding: 16px;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-enviar-whats:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(37, 211, 102, 0.7);
+}
+
+/* ===============================
+   OVERLAY
+   =============================== */
+
+#overlay-carrinho {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    z-index: 1999;
+}
+
+/* ===============================
+   CARRINHO FLUTUANTE
+   =============================== */
+
+#carrinho-flutuante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #ff909d, #F6B7B7);
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 50px;
+    box-shadow: 0 10px 25px rgba(232, 154, 163, 0.55);
+    z-index: 1000;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    transition: transform 0.3s ease;
+}
+
+#carrinho-flutuante:hover {
+    transform: scale(1.08);
+}
+
+/* ===============================
+   BOTÕES DO CARD (PRODUTOS)
+   =============================== */
+
 .pag-produtos .botoes-container {
     display: flex;
-    gap: 8px;
-    margin-top: 10px;
+    gap: 5px;
+    margin-top: 12px;
 }
 
 .pag-produtos .comprar-agora {
     flex: 1;
-    padding: 10px 5px !important;
-    font-size: 13px !important;
+    padding: 12px 0 !important;
+    font-size: 14px !important;
+    border-radius: 10%;
 }
 
 .add-carrinho {
-    background: #202020;
-    color: white;
+    width: 46px;
+    height: 46px;
+    border-radius: 10%;
+    background: #F6B7B7;
+    color: #fff;
     border: none;
-    border-radius: 30px;
-    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background 0.3s, transform 0.3s;
 }
 
-.add-carrinho:hover { background: #444; }
+.add-carrinho i {
+    font-size: 20px;
+}
+
+.add-carrinho:hover {
+    background: #f08894;
+    transform: scale(1.08);
+}
+
+
+
+

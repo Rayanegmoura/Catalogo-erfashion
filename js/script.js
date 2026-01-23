@@ -217,12 +217,11 @@ function trocarFoto(elemento) {
 
 let carrinho = [];
 
-// Modifique a função renderizarNoHTML
+// Mantendo sua função principal exatamente como você gosta
 function renderizarNoHTML(produtos) {
     const container = document.getElementById('container-produtos');
     const ehPaginaTodos = container.getAttribute('data-page') === 'todos';
     
-    // Adiciona classe ao container para controle de CSS
     if (ehPaginaTodos) container.classList.add('pag-produtos');
 
     container.innerHTML = "";
@@ -231,7 +230,6 @@ function renderizarNoHTML(produtos) {
         const tagTexto = produto.tags?.[0] || "";
         const tagClasse = tagTexto.toLowerCase().replace(/\s+/g, '-');
         
-        // Criamos os botões dependendo da página
         let botoesHTML = `<button class="comprar-agora" onclick="enviarUmProduto('${produto.nome}', '${produto.preco}', '${produto.imagens[0]}')"> 
                             <i class="bi bi-whatsapp"></i> Quero esse look
                           </button>`;
@@ -239,7 +237,7 @@ function renderizarNoHTML(produtos) {
         if (ehPaginaTodos) {
             botoesHTML = `
                 <div class="botoes-container">
-                    <button class="comprar-agora" onclick="enviarUmProduto('${produto.nome}', '${produto.preco}', '${produto.imagens[0]}')">Quero esse Look</button>
+                    <button class="comprar-agora" onclick="enviarUmProduto('${produto.nome}', '${produto.preco}', '${produto.imagens[0]}')">Quero esse look</button>
                     <button class="add-carrinho" onclick="adicionarAoCarrinho(${JSON.stringify(produto).replace(/"/g, '&quot;')})">
                         <i class="bi bi-cart-plus"></i>
                     </button>
@@ -264,27 +262,71 @@ function renderizarNoHTML(produtos) {
     inicializarSliders();
 }
 
-// Funções de Lógica
+// --- NOVAS FUNÇÕES COM A LISTA DETALHADA ---
+
+function toggleCarrinho() {
+    const lateral = document.getElementById('carrinho-lateral');
+    const overlay = document.getElementById('overlay-carrinho');
+    lateral.classList.toggle('aberto');
+    if(overlay) overlay.style.display = lateral.classList.contains('aberto') ? 'block' : 'none';
+}
+
 function adicionarAoCarrinho(produto) {
     carrinho.push(produto);
-    atualizarBotaoCarrinho();
+    atualizarBotaoCarrinho(); // Atualiza o botão flutuante
+    renderizarItensCarrinho(); // Atualiza a lista interna
 }
 
 function atualizarBotaoCarrinho() {
     const btn = document.getElementById('carrinho-flutuante');
     if (carrinho.length > 0) {
         btn.style.display = 'flex';
-        btn.innerHTML = `<i class="bi bi-cart-fill"></i> ${carrinho.length} itens no carrinho - Enviar Pedido`;
+        // Agora o botão apenas mostra a quantidade e convida a ver o carrinho
+        btn.innerHTML = `<i class="bi bi-cart-fill"></i> ${carrinho.length} itens - Ver sacola`;
+    } else {
+        btn.style.display = 'none';
     }
+}
+
+function renderizarItensCarrinho() {
+    const lista = document.getElementById('itens-carrinho-lista');
+    const totalElemento = document.getElementById('carrinho-total-valor');
+    
+    if(!lista) return; // Segurança caso não esteja na página de produtos
+
+    lista.innerHTML = "";
+    let total = 0;
+
+    carrinho.forEach((item, index) => {
+        total += item.preco;
+        lista.innerHTML += `
+            <div class="item-carrinho">
+                <img src="${item.imagens[0]}" alt="${item.nome}">
+                <div class="item-info">
+                    <h4>${item.nome}</h4>
+                    <p>R$ ${item.preco.toFixed(2).replace('.', ',')}</p>
+                    <button onclick="removerItem(${index})" class="btn-remover">Remover</button>
+                </div>
+            </div>
+        `;
+    });
+
+    if(totalElemento) totalElemento.innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+}
+
+function removerItem(index) {
+    carrinho.splice(index, 1);
+    atualizarBotaoCarrinho();
+    renderizarItensCarrinho();
 }
 
 function enviarCarrinho() {
     const numeroWhats = "5521987209252";
-    let texto = "Oi! Gostaria de encomendar estes itens:\n\n";
+    let texto = "Oi! Gostaria de encomendar estes itens da sacola:\n\n";
     let total = 0;
 
     carrinho.forEach((item, i) => {
-        texto += `${i + 1}. *${item.nome}* - R$ ${item.preco.toFixed(2)}\n`;
+        texto += `📸 *Item ${i + 1}:* ${item.nome} - R$ ${item.preco.toFixed(2)}\n`;
         total += item.preco;
     });
 
@@ -297,3 +339,6 @@ function enviarUmProduto(nome, preco, img) {
     let msg = `Oi! Quero comprar: ${nome} - R$ ${preco}\nImagem: ${window.location.origin}/${img}`;
     window.open(`https://wa.me/${numeroWhats}?text=${encodeURIComponent(msg)}`, '_blank');
 }
+
+
+

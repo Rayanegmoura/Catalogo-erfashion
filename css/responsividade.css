@@ -99,16 +99,15 @@
 }
 
 /* RESPONSIVIDADE */
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 830px) {
   .menu-hamburguer {
     display: block;
   }
 
-  .menu-desktop {
+  .menu-desktop, .redes-sociais-topo{
     display: none;
   }
 }
-
 
 /* RESPONSIVIDADE */
 
@@ -353,5 +352,67 @@
 
   .footer-bottom p {
     font-size: 12px;
+  }
+}
+
+
+
+/* ===============================
+   RESPONSIVO
+   =============================== */
+
+@media (max-width: 480px) {
+    #carrinho-lateral {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .produtos-destaque .tela-produto {
+        height: auto; /* libera o card */
+    }
+
+    .acoes-produto {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .acoes-produto button,
+  .acoes-produto a {
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  .acoes-produto .btn-carrinho {
+    height: 42px;
+  }
+}
+
+
+@media (max-width: 768px) {
+
+  .acoes-produto,
+  .botoes-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px;
+  }
+
+  .acoes-produto button,
+  .acoes-produto a,
+  .comprar-agora,
+  .add-carrinho {
+    width: 100% !important;
+    border-radius: 10px !important;
+  }
+
+  .comprar-agora {
+    padding: 12px 0 !important;
+    font-size: 14px !important;
+  }
+
+  .add-carrinho {
+    padding: 11px 0 !important;
+    font-size: 14px;
   }
 }
