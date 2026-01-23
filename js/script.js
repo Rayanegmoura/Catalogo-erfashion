@@ -324,16 +324,22 @@ function enviarCarrinho() {
     const numeroWhats = "5521987209252";
     if (carrinho.length === 0) return;
 
-    // Cabeçalho da mensagem
+    // Detecta se está no GitHub Pages e ajusta o caminho base
+    const baseLink = window.location.href.includes("github.io") 
+        ? window.location.href.split('/produtos.html')[0] 
+        : window.location.origin;
+
     let texto = "✨ *NOVO PEDIDO - ER FASHION* ✨\n";
     texto += "------------------------------------------\n";
-    texto += "Olá! Escolhi esses looks no site e gostaria de verificar a disponibilidade:\n\n";
     
     let total = 0;
 
     carrinho.forEach((item, i) => {
         const precoFormatado = item.preco.toFixed(2).replace('.', ',');
-        const linkImagem = `${window.location.origin}/${item.imagens[0]}`;
+        
+        // Remove a "/" inicial do caminho da imagem se ela existir para não duplicar
+        const caminhoLimpo = item.imagens[0].startsWith('/') ? item.imagens[0].substring(1) : item.imagens[0];
+        const linkImagem = `${baseLink}/${caminhoLimpo}`;
         
         texto += `*${i + 1}. ${item.nome.toUpperCase()}*\n`;
         texto += `💰 Preço: R$ ${precoFormatado}\n`;
@@ -344,11 +350,8 @@ function enviarCarrinho() {
     });
 
     const totalFinal = total.toFixed(2).replace('.', ',');
-    texto += `\n🛍️ *RESUMO DO PEDIDO*\n`;
-    texto += `🔢 Quantidade: ${carrinho.length} itens\n`;
-    texto += `💳 *TOTAL: R$ ${totalFinal}*`;
+    texto += `\n💳 *TOTAL: R$ ${totalFinal}*`;
 
-    // Abre o WhatsApp com o texto formatado
     window.open(`https://wa.me/${numeroWhats}?text=${encodeURIComponent(texto)}`, '_blank');
 }
 
@@ -364,6 +367,14 @@ function enviarUmProduto(nome, preco, img) {
     msg += `Poderia me informar a disponibilidade de tamanhos?`;
 
     window.open(`https://wa.me/${numeroWhats}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function mostrarToast(nome) {
+    const toast = document.createElement('div');
+    toast.innerHTML = `✅ <b>${nome}</b> adicionado!`;
+    toast.style = "position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#202020; color:#fff; padding:12px 25px; border-radius:30px; z-index:3000; font-family:'Zain'; box-shadow:0 5px 15px rgba(0,0,0,0.3);";
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2500);
 }
 
 
