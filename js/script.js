@@ -208,3 +208,92 @@ function trocarFoto(elemento) {
     minis.forEach(m => m.classList.remove('active'));
     elemento.classList.add('active');
 }
+
+
+
+
+
+
+
+let carrinho = [];
+
+// Modifique a função renderizarNoHTML
+function renderizarNoHTML(produtos) {
+    const container = document.getElementById('container-produtos');
+    const ehPaginaTodos = container.getAttribute('data-page') === 'todos';
+    
+    // Adiciona classe ao container para controle de CSS
+    if (ehPaginaTodos) container.classList.add('pag-produtos');
+
+    container.innerHTML = "";
+
+    produtos.forEach((produto, index) => {
+        const tagTexto = produto.tags?.[0] || "";
+        const tagClasse = tagTexto.toLowerCase().replace(/\s+/g, '-');
+        
+        // Criamos os botões dependendo da página
+        let botoesHTML = `<button class="comprar-agora" onclick="enviarUmProduto('${produto.nome}', '${produto.preco}', '${produto.imagens[0]}')"> 
+                            <i class="bi bi-whatsapp"></i> Quero esse look
+                          </button>`;
+
+        if (ehPaginaTodos) {
+            botoesHTML = `
+                <div class="botoes-container">
+                    <button class="comprar-agora" onclick="enviarUmProduto('${produto.nome}', '${produto.preco}', '${produto.imagens[0]}')">Quero esse Look</button>
+                    <button class="add-carrinho" onclick="adicionarAoCarrinho(${JSON.stringify(produto).replace(/"/g, '&quot;')})">
+                        <i class="bi bi-cart-plus"></i>
+                    </button>
+                </div>`;
+        }
+
+        container.innerHTML += `
+            <div class="tela-produto ${tagTexto ? 'tag ' + tagClasse : ''}" data-label="${tagTexto}">
+                <div class="slider-produto">
+                    ${produto.imagens.map((img, i) => `<img src="${img}" class="${i === 0 ? 'active' : ''}">`).join('')}
+                </div>
+                <div class="slider-dots">
+                    ${produto.imagens.map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}"></span>`).join('')}
+                </div>
+                <h3>${produto.nome}</h3>
+                <p>R$ ${produto.preco.toFixed(2).replace('.', ',')}</p>
+                ${botoesHTML}
+            </div>
+        `;
+    });
+
+    inicializarSliders();
+}
+
+// Funções de Lógica
+function adicionarAoCarrinho(produto) {
+    carrinho.push(produto);
+    atualizarBotaoCarrinho();
+}
+
+function atualizarBotaoCarrinho() {
+    const btn = document.getElementById('carrinho-flutuante');
+    if (carrinho.length > 0) {
+        btn.style.display = 'flex';
+        btn.innerHTML = `<i class="bi bi-cart-fill"></i> ${carrinho.length} itens no carrinho - Enviar Pedido`;
+    }
+}
+
+function enviarCarrinho() {
+    const numeroWhats = "5521987209252";
+    let texto = "Oi! Gostaria de encomendar estes itens:\n\n";
+    let total = 0;
+
+    carrinho.forEach((item, i) => {
+        texto += `${i + 1}. *${item.nome}* - R$ ${item.preco.toFixed(2)}\n`;
+        total += item.preco;
+    });
+
+    texto += `\n*Total: R$ ${total.toFixed(2)}*`;
+    window.open(`https://wa.me/${numeroWhats}?text=${encodeURIComponent(texto)}`, '_blank');
+}
+
+function enviarUmProduto(nome, preco, img) {
+    const numeroWhats = "5521987209252";
+    let msg = `Oi! Quero comprar: ${nome} - R$ ${preco}\nImagem: ${window.location.origin}/${img}`;
+    window.open(`https://wa.me/${numeroWhats}?text=${encodeURIComponent(msg)}`, '_blank');
+}

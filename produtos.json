@@ -6,38 +6,38 @@
   "hora_fim_vip": 20,
   "produtos": [
     {
-      "nome": "Conjunto Estampado 1",
+      "nome": "Conjunto Jeans",
       "preco": 189.90,
       "descricao": "Conjunto leve e estiloso para todas as ocasiões.",
-      "imagens": ["img/IMG_8182.jpg", "img/IMG_8028.jpg", "img/IMG_8180.jpg"],
+      "imagens": ["img/IMG_8028.jpg", "img/IMG_8180.jpg"],
       "tags": ["Promoção"]
     },
     {
-      "nome": "Vestido Longo Floral",
-      "preco": 199.90,
+      "nome": "Body Manga",
+      "preco": 59.90,
       "descricao": "Vestido longo e floral, perfeito para looks de verão.",
-      "imagens": ["img/IMG_8182.jpg", "img/IMG_8028.jpg", "img/IMG_8180.jpg"],
+      "imagens": ["img/IMG_8202.jpg", "img/IMG_8180.jpg"],
       "tags": ["Promoção"]
     },
     {
-      "nome": "Conjunto Estampado",
-      "preco": 189.90,
+      "nome": "Saia Midi Estampas",
+      "preco": 89.90,
       "descricao": "Conjunto leve e estiloso para todas as ocasiões.",
-      "imagens": ["img/IMG_8182.jpg", "img/IMG_8028.jpg", "img/IMG_8180.jpg"],
+      "imagens": ["img/IMG_8312.jpg"],
       "tags": ["Coleção Nova"]
     },
     {
-      "nome": "Conjunto Estampado",
-      "preco": 189.90,
+      "nome": "Blusa Tricot Modal",
+      "preco": 49.90,
       "descricao": "Conjunto leve e estiloso para todas as ocasiões.",
-      "imagens": ["img/IMG_8182.jpg", "img/IMG_8028.jpg", "img/IMG_8180.jpg"],
+      "imagens": ["img/IMG_8206.jpg", "img/IMG_8028.jpg", "img/IMG_8180.jpg"],
       "tags": ["Promoção"]
     },
     {
-      "nome": "Conjunto Estampado",
-      "preco": 189.90,
+      "nome": "Vestido Polly",
+      "preco": 99.90,
       "descricao": "Conjunto leve e estiloso para todas as ocasiões.",
-      "imagens": ["img/IMG_8182.jpg", "img/IMG_8028.jpg", "img/IMG_8180.jpg"],
+      "imagens": ["img/IMG_8055.jpg", "img/IMG_8028.jpg", "img/IMG_8180.jpg"],
       "tags": ["Moda Praia"]
     },
     {

@@ -614,3 +614,52 @@ button.comprar-agora:hover {
 .footer-bottom a {
     text-decoration: none;
 }
+
+
+
+
+/* Carrinho Flutuante */
+#carrinho-flutuante {
+    position: fixed;
+    bottom: 90px; /* Acima do botão do WhatsApp */
+    right: 20px;
+    background: #E89AA3;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 50px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    z-index: 1000;
+    cursor: pointer;
+    display: none; /* Inicia oculto */
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+#carrinho-flutuante:hover { transform: scale(1.05); }
+
+/* Ajuste dos botões no Card (Apenas para página de produtos) */
+.pag-produtos .botoes-container {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.pag-produtos .comprar-agora {
+    flex: 1;
+    padding: 10px 5px !important;
+    font-size: 13px !important;
+}
+
+.add-carrinho {
+    background: #202020;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-carrinho:hover { background: #444; }
