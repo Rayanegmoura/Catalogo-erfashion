@@ -858,5 +858,74 @@ button.comprar-agora:hover {
 }
 
 
+/* ===============================
+   TOAST DE CONFIRMAÇÃO
+   =============================== */
+
+.toast-sucesso {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #f08894;
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 18px; /* menos redondo, mais moderno */
+    z-index: 3000;
+    font-family: 'Zain', 'Segoe UI', sans-serif;
+    font-size: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    border: 1px solid #E89AA3;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    opacity: 0;
+    pointer-events: none;
+
+    animation: toastEntrada 0.4s ease forwards,
+               toastSaida 0.4s ease 2.2s forwards;
+}
+
+/* MOBILE: mais compacto */
+@media (max-width: 768px) {
+    .toast-sucesso {
+        width: calc(100% - 32px);
+        text-align: center;
+        justify-content: center;
+        font-size: 14px;
+        padding: 10px 16px;
+    }
+}
+
+/* ===============================
+   ANIMAÇÕES
+   =============================== */
+
+@keyframes toastEntrada {
+    from {
+        top: -40px;
+        opacity: 0;
+    }
+    to {
+        top: 20px;
+        opacity: 1;
+    }
+}
+
+@keyframes toastSaida {
+    from {
+        top: 20px;
+        opacity: 1;
+    }
+    to {
+        top: -40px;
+        opacity: 0;
+    }
+}
+
+
+
 
 

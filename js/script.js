@@ -212,17 +212,16 @@ function trocarFoto(elemento) {
 
 
 
+// 6. CARRINHO
+let carrinho = JSON.parse(localStorage.getItem('carrinho_erfashion')) || [];
 
-
-
-let carrinho = [];
-
-// Mantendo sua função principal exatamente como você gosta
+// Mantendo sua função principal
 function renderizarNoHTML(produtos) {
     const container = document.getElementById('container-produtos');
-    const ehPaginaTodos = container.getAttribute('data-page') === 'todos';
+    const ehPaginaTodos = container && container.getAttribute('data-page') === 'todos';
     
     if (ehPaginaTodos) container.classList.add('pag-produtos');
+    if (!container) return;
 
     container.innerHTML = "";
 
@@ -260,31 +259,39 @@ function renderizarNoHTML(produtos) {
     });
 
     inicializarSliders();
+    
+    // 2. ADIÇÃO AQUI: Garante que o carrinho apareça se já houver itens salvos
+    atualizarBotaoCarrinho();
+    renderizarItensCarrinho();
 }
-
-// --- NOVAS FUNÇÕES COM A LISTA DETALHADA ---
 
 function toggleCarrinho() {
     const lateral = document.getElementById('carrinho-lateral');
     const overlay = document.getElementById('overlay-carrinho');
-    lateral.classList.toggle('aberto');
+    if(lateral) lateral.classList.toggle('aberto');
     if(overlay) overlay.style.display = lateral.classList.contains('aberto') ? 'block' : 'none';
 }
 
 function adicionarAoCarrinho(produto) {
     carrinho.push(produto);
-    atualizarBotaoCarrinho(); // Atualiza o botão flutuante
-    renderizarItensCarrinho(); // Atualiza a lista interna
+    atualizarBotaoCarrinho(); 
+    renderizarItensCarrinho();
+    mostrarToast(produto.nome); // 3. CHAMA O AVISO AQUI
 }
 
 function atualizarBotaoCarrinho() {
     const btn = document.getElementById('carrinho-flutuante');
+    if (!btn) return;
+
     if (carrinho.length > 0) {
         btn.style.display = 'flex';
-        // Agora o botão apenas mostra a quantidade e convida a ver o carrinho
         btn.innerHTML = `<i class="bi bi-cart-fill"></i> ${carrinho.length} itens - Ver sacola`;
+        
+        // 4. SALVA NO NAVEGADOR AQUI
+        localStorage.setItem('carrinho_erfashion', JSON.stringify(carrinho));
     } else {
         btn.style.display = 'none';
+        localStorage.removeItem('carrinho_erfashion');
     }
 }
 
@@ -292,7 +299,7 @@ function renderizarItensCarrinho() {
     const lista = document.getElementById('itens-carrinho-lista');
     const totalElemento = document.getElementById('carrinho-total-valor');
     
-    if(!lista) return; // Segurança caso não esteja na página de produtos
+    if(!lista) return;
 
     lista.innerHTML = "";
     let total = 0;
@@ -324,7 +331,6 @@ function enviarCarrinho() {
     const numeroWhats = "5521987209252";
     if (carrinho.length === 0) return;
 
-    // Detecta se está no GitHub Pages e ajusta o caminho base
     const baseLink = window.location.href.includes("github.io") 
         ? window.location.href.split('/produtos.html')[0] 
         : window.location.origin;
@@ -333,11 +339,8 @@ function enviarCarrinho() {
     texto += "------------------------------------------\n";
     
     let total = 0;
-
     carrinho.forEach((item, i) => {
         const precoFormatado = item.preco.toFixed(2).replace('.', ',');
-        
-        // Remove a "/" inicial do caminho da imagem se ela existir para não duplicar
         const caminhoLimpo = item.imagens[0].startsWith('/') ? item.imagens[0].substring(1) : item.imagens[0];
         const linkImagem = `${baseLink}/${caminhoLimpo}`;
         
@@ -345,7 +348,6 @@ function enviarCarrinho() {
         texto += `💰 Preço: R$ ${precoFormatado}\n`;
         texto += `🔗 Ver foto: ${linkImagem}\n`;
         texto += `------------------------------------------\n`;
-        
         total += item.preco;
     });
 
@@ -353,6 +355,17 @@ function enviarCarrinho() {
     texto += `\n💳 *TOTAL: R$ ${totalFinal}*`;
 
     window.open(`https://wa.me/${numeroWhats}?text=${encodeURIComponent(texto)}`, '_blank');
+
+    // 5. LIMPA O CARRINHO APÓS O ENVIO (OPCIONAL - COM CONFIRMAÇÃO)
+    setTimeout(() => {
+        if(confirm("Deseja esvaziar sua sacola para uma nova compra?")) {
+            carrinho = [];
+            localStorage.removeItem('carrinho_erfashion');
+            atualizarBotaoCarrinho();
+            renderizarItensCarrinho();
+            toggleCarrinho();
+        }
+    }, 2000);
 }
 
 function enviarUmProduto(nome, preco, img) {
@@ -371,11 +384,12 @@ function enviarUmProduto(nome, preco, img) {
 
 function mostrarToast(nome) {
     const toast = document.createElement('div');
-    toast.innerHTML = `✅ <b>${nome}</b> adicionado!`;
-    toast.style = "position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#202020; color:#fff; padding:12px 25px; border-radius:30px; z-index:3000; font-family:'Zain'; box-shadow:0 5px 15px rgba(0,0,0,0.3);";
+    toast.className = 'toast-sucesso';
+    toast.innerHTML = `✅ <b>${nome}</b> adicionado ao carrinho`;
+
     document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 2500);
+
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
 }
-
-
-
