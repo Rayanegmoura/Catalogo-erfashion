@@ -352,6 +352,8 @@ function enviarCarrinho() {
     });
 
     const totalFinal = total.toFixed(2).replace('.', ',');
+    texto += `\n🛍️ *RESUMO DO PEDIDO*\n`;
+    texto += `🔢 Quantidade: ${carrinho.length} itens\n`;
     texto += `\n💳 *TOTAL: R$ ${totalFinal}*`;
 
     window.open(`https://wa.me/${numeroWhats}?text=${encodeURIComponent(texto)}`, '_blank');
