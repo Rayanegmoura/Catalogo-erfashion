@@ -96,20 +96,28 @@ function aplicarFiltros() {
 
     let resultado = [...produtosOriginais];
 
+    // 1. Filtro de categoria
     if (filtroTag !== "todos") {
         resultado = resultado.filter(p => p.tags && p.tags.includes(filtroTag));
     }
 
-    const PESOS = { "Coleção Nova": 1, "Destaque": 2, "Promoção": 3 };
-
+    // 2. Ordenação Inteligente
     resultado.sort((a, b) => {
         if (filtroPreco === "menor") return a.preco - b.preco;
         if (filtroPreco === "maior") return b.preco - a.preco;
-        const pesoA = PESOS[a.tags?.[0]] || 99;
-        const pesoB = PESOS[b.tags?.[0]] || 99;
-        return pesoA - pesoB;
+
+        // Função para definir a prioridade
+        const getPeso = (produto) => {
+            const tag = produto.tags && produto.tags[0];
+            if (tag === "Coleção Nova") return 1;
+            if (tag === "Promoção") return 3;
+            return 2; // Produtos sem tag ou com tags comuns (Destaque, etc)
+        };
+
+        return getPeso(a) - getPeso(b);
     });
 
+    // 3. Regra da Home (Mantém seus 12 produtos de Coleção Nova)
     if (ehPaginaHome && filtroTag === "todos" && filtroPreco === "padrao") {
         resultado = resultado
             .filter(p => p.tags && p.tags.includes("Coleção Nova"))

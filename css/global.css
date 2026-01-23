@@ -390,30 +390,71 @@ section.box-colecao-da-semana {
 
 /* CORES POR TIPO */
 .tela-produto.tag.novo::before {
+    content: "NOVO";
     background: #f2d9c3;
     color: #202020;
 }
 
 .tela-produto.tag.promoção::before {
-    background: #b80000;
+    content: "🔥 PROMO";
+    background: linear-gradient(135deg, #b80000, #ff3b3b);
     color: #fff;
+    font-weight: 900;
+    font-size: 0.85rem;
+    letter-spacing: 1.4px;
     text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 4px 16px 4px 16px;
+    transform: rotate(-6deg);
+    box-shadow:
+        0 6px 14px rgba(184, 0, 0, 0.55),
+        0 0 12px rgba(255, 59, 59, 0.7);
+    animation: promoGlow 1.8s infinite ease-in-out;
 }
 
-.tela-produto.tag.summer::before {
-    background: #f2d9c3;
+@keyframes promoGlow {
+    0% {
+        transform: rotate(-6deg) scale(1);
+    }
+    50% {
+        transform: rotate(-6deg) scale(1.1);
+    }
+    100% {
+        transform: rotate(-6deg) scale(1);
+    }
+}
+
+.tela-produto.tag.moda-praia::before {
+    content: "MODA PRAIA";
+    background: linear-gradient(135deg, #7fd2eb, #ffe9b0);
     color: #202020;
+    font-weight: 700;
 }
 
 .tela-produto.tag.destaque::before {
+    content: "DESTAQUE";
     background: #E89AA3;
     color: #202020;
+    font-weight: 800;
 }
 
+
 .tela-produto.tag.coleção-nova::before {
-    background: #ee3cc2;
-    color: #fff;
+    content: "COLEÇÃO NOVA";
+    background: linear-gradient(135deg, #D6B96E, #f3dfa3);
+    width: 100%;
+    color: #202020;
+    font-weight: 800;
+    letter-spacing: 1px;
+    animation: pulseTag 2s infinite;
 }
+
+@keyframes pulseTag {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+    100% { transform: scale(1); }
+}
+
 
 /* BOLINHAS DAS IMAGENS */
 
