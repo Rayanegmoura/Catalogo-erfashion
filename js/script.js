@@ -322,21 +322,47 @@ function removerItem(index) {
 
 function enviarCarrinho() {
     const numeroWhats = "5521987209252";
-    let texto = "Oi! Gostaria de encomendar estes itens da sacola:\n\n";
+    if (carrinho.length === 0) return;
+
+    // Cabeçalho da mensagem
+    let texto = "✨ *NOVO PEDIDO - ER FASHION* ✨\n";
+    texto += "------------------------------------------\n";
+    texto += "Olá! Escolhi esses looks no site e gostaria de verificar a disponibilidade:\n\n";
+    
     let total = 0;
 
     carrinho.forEach((item, i) => {
-        texto += `📸 *Item ${i + 1}:* ${item.nome} - R$ ${item.preco.toFixed(2)}\n`;
+        const precoFormatado = item.preco.toFixed(2).replace('.', ',');
+        const linkImagem = `${window.location.origin}/${item.imagens[0]}`;
+        
+        texto += `*${i + 1}. ${item.nome.toUpperCase()}*\n`;
+        texto += `💰 Preço: R$ ${precoFormatado}\n`;
+        texto += `🔗 Ver foto: ${linkImagem}\n`;
+        texto += `------------------------------------------\n`;
+        
         total += item.preco;
     });
 
-    texto += `\n*Total: R$ ${total.toFixed(2)}*`;
+    const totalFinal = total.toFixed(2).replace('.', ',');
+    texto += `\n🛍️ *RESUMO DO PEDIDO*\n`;
+    texto += `🔢 Quantidade: ${carrinho.length} itens\n`;
+    texto += `💳 *TOTAL: R$ ${totalFinal}*`;
+
+    // Abre o WhatsApp com o texto formatado
     window.open(`https://wa.me/${numeroWhats}?text=${encodeURIComponent(texto)}`, '_blank');
 }
 
 function enviarUmProduto(nome, preco, img) {
     const numeroWhats = "5521987209252";
-    let msg = `Oi! Quero comprar: ${nome} - R$ ${preco}\nImagem: ${window.location.origin}/${img}`;
+    const precoFormatado = parseFloat(preco).toFixed(2).replace('.', ',');
+    const linkImagem = `${window.location.origin}/${img}`;
+
+    let msg = `✨ *INTERESSE EM PRODUTO ÚNICO* ✨\n\n`;
+    msg += `👗 *Look:* ${nome.toUpperCase()}\n`;
+    msg += `💰 *Valor:* R$ ${precoFormatado}\n\n`;
+    msg += `📸 *Imagem:* ${linkImagem}\n\n`;
+    msg += `Poderia me informar a disponibilidade de tamanhos?`;
+
     window.open(`https://wa.me/${numeroWhats}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
