@@ -150,7 +150,7 @@ function renderizarNoHTML(produtos) {
                 <div class="slider-dots">${dotsHTML}</div>
                 <h3>${produto.nome}</h3>
                 <p>R$ ${produto.preco.toFixed(2).replace('.', ',')}</p>
-                <button class="comprar-agora"> <i class="bi bi-whatsapp"></i> Comprar Agora</button>
+                <button class="comprar-agora"> <i class="bi bi-whatsapp"></i> Quero esse look</button>
             </div>
         `;
     });
